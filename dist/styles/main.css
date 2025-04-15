@@ -1,0 +1,162 @@
+/**
+ * Blue Marlin OS - Main Stylesheet
+ * 
+ * This is the main stylesheet for Blue Marlin OS, using Tailwind CSS.
+ * It preserves the underwater visual effects and theme system while
+ * improving maintainability through the utility-first approach.
+ */
+
+/* Tailwind Base Layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Theme Variables */
+@layer base {
+  :root {
+    /* Night Mode (phase-apex) Variables */
+    --apex-bg: #0a0e17;
+    --apex-container-bg: rgba(14, 22, 39, 0.7);
+    --apex-header-bg: rgba(10, 17, 33, 0.8);
+    --apex-text: #e1e8f5;
+    --apex-accent: #3e8ede;
+    --apex-muted: #768aa8;
+    --apex-accent-rgb: 62, 142, 222;
+    --apex-shafts: rgba(62, 142, 222, 0.15);
+    
+    /* Day Mode (phase-origin) Variables - used when .phase-origin class is present */
+    --origin-bg: #faf5f0;
+    --origin-container-bg: rgba(250, 245, 240, 0.7);
+    --origin-header-bg: rgba(250, 245, 240, 0.8);
+    --origin-text: #2a2724;
+    --origin-accent: #f27405;
+    --origin-muted: #a3917c;
+    --origin-accent-rgb: 242, 116, 5;
+    --origin-shafts: rgba(242, 116, 5, 0.05);
+  }
+  
+  /* Base Styles */
+  html {
+    @apply bg-apex-bg text-apex-text;
+    scroll-behavior: smooth;
+  }
+  
+  /* Day Theme (phase-origin) */
+  html.phase-origin {
+    @apply bg-origin-bg text-origin-text;
+  }
+  
+  /* Typography Base Styles */
+  body {
+    @apply font-sans antialiased;
+    font-feature-settings: 'kern' 1;
+    text-rendering: optimizeLegibility;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+    line-height: 1.2;
+  }
+  
+  h1 {
+    @apply text-4xl;
+  }
+  
+  h2 {
+    @apply text-3xl;
+  }
+  
+  h3 {
+    @apply text-2xl;
+  }
+  
+  h4 {
+    @apply text-xl;
+  }
+  
+  p {
+    @apply my-4;
+    line-height: 1.6;
+  }
+  
+  a {
+    @apply text-apex-accent transition-colors duration-200;
+  }
+  
+  html.phase-origin a {
+    @apply text-origin-accent;
+  }
+  
+  a:hover {
+    @apply opacity-90;
+  }
+}
+
+/* Underwater Environment Effects */
+@layer components {
+  /* Container for both effects */
+  .underwater-environment {
+    @apply absolute inset-0 z-0 overflow-hidden;
+  }
+  
+  /* Theme Toggle */
+  .theme-toggle {
+    @apply relative w-12 h-6 bg-apex-accent border-none rounded-xl cursor-pointer transition-colors duration-300;
+  }
+  
+  html.phase-origin .theme-toggle {
+    @apply bg-origin-accent;
+  }
+  
+  .theme-toggle-knob {
+    @apply absolute left-[26px] top-[2px] w-5 h-5 bg-apex-bg rounded-full flex items-center justify-center transition-all duration-300 text-apex-text;
+  }
+  
+  html.phase-origin .theme-toggle-knob {
+    @apply left-[2px] bg-origin-bg text-origin-text transition-all duration-300;
+  }
+  
+  .theme-toggle-icon {
+    @apply block text-xs transform translate-y-0 leading-none;
+  }
+  
+  /* Layout Components */
+  .content-container {
+    /* This is defined in the Tailwind plugin for consistent styling */
+  }
+  
+  .header {
+    @apply sticky top-0 z-[100] bg-apex-header-bg backdrop-blur transition-colors duration-500;
+  }
+  
+  html.phase-origin .header {
+    @apply bg-origin-header-bg;
+  }
+  
+  /* Animation Helpers */
+  .has-animated {
+    animation-play-state: running;
+  }
+  
+  /* Motion Reduction */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      @apply animate-none transition-none;
+    }
+    
+    .particles {
+      @apply hidden;
+    }
+  }
+}
+
+/* Import Modular CSS Files */
+@import 'base/reset.css';
+@import 'base/typography.css';
+@import 'themes/night.css';
+@import 'themes/day.css';
+@import 'animations/effects.css';
+@import 'components/buttons.css';
+@import 'components/cards.css';
+@import 'components/navigation.css';
+@import 'layouts/grid.css'; 

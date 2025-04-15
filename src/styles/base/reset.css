@@ -1,0 +1,151 @@
+/**
+ * Blue Marlin OS - CSS Reset
+ * 
+ * Tailwind already includes a basic reset with @tailwind base, but this file
+ * adds some additional resets and normalizations specific to Blue Marlin OS.
+ */
+
+/* Additional resets on top of Tailwind's defaults */
+
+/* Button Reset */
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+/* Universal box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove focus outline for mouse, but keep it for keyboard */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--apex-accent);
+  outline-offset: 2px;
+}
+
+html.phase-origin :focus-visible {
+  outline-color: var(--origin-accent);
+}
+
+/* Improve media defaults */
+img, video, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Remove list styles by default */
+ul, ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+  margin: 0;
+}
+
+/* Set custom scrollbar for theme consistency */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(14, 22, 39, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--apex-muted);
+  border-radius: 5px;
+}
+
+html.phase-origin ::-webkit-scrollbar-track {
+  background: rgba(250, 245, 240, 0.2);
+}
+
+html.phase-origin ::-webkit-scrollbar-thumb {
+  background: var(--origin-muted);
+}
+
+/*
+  Blue Marlin OS - Base CSS Reset
+  --------------------------------
+  This file resets browser default styles and establishes a consistent baseline for all elements.
+  It is the first import in main.css and should not contain any project-specific styles.
+  
+  - Removes default margin/padding
+  - Sets box-sizing to border-box
+  - Normalizes font inheritance
+  - Ensures consistent rendering across browsers
+*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  line-height: 1.15; /* Improve text rendering */
+  -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape */
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  font-family: inherit;
+  background: none;
+  color: inherit;
+}
+
+main {
+  display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+a {
+  background-color: transparent;
+  color: inherit;
+  text-decoration: none;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button, input, optgroup, select, textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+button, [type="button"], [type="reset"], [type="submit"] {
+  -webkit-appearance: button;
+}
+
+/* Remove built-in form field border radius */
+input, textarea, select, button {
+  border-radius: 0;
+} 

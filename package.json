@@ -1,0 +1,38 @@
+{
+  "name": "blue-marlin-os",
+  "version": "1.0.0",
+  "description": "Blue Marlin OS is a minimal design system and frontend implementation inspired by deep-sea interfaces, migrated to a modern tech stack combining Tailwind CSS and 11ty static site generator.",
+  "main": "src/scripts/main.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "npm-run-all build:*",
+    "build:css": "postcss src/styles/main.css -o dist/css/styles.css",
+    "build:eleventy": "eleventy",
+    "start": "npm-run-all --parallel dev:*",
+    "dev:css": "postcss src/styles/main.css -o dist/css/styles.css --watch",
+    "dev:eleventy": "eleventy --serve",
+    "clean": "rm -rf dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tailwind",
+    "11ty",
+    "underwater",
+    "theme",
+    "animation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@tailwindcss/postcss": "^4.1.4",
+    "autoprefixer": "^10.4.16",
+    "browsersync": "^0.0.1-security",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.32",
+    "postcss-cli": "^10.1.0",
+    "tailwindcss": "^3.3.6"
+  }
+}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" class="phase-apex">
+<head>
+  <!--
+    ========================================================================
+    BLUE MARLIN OS - Home Page
+    ------------------------------------------------------------------------
+    - Landing page for the underwater OS interface
+    - Demonstrates hero, project, and journal preview sections
+    - Uses dual theme system (night: phase-apex, day: phase-origin)
+    ========================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLUE MARLIN OS</title>
+  <!-- Preconnect for Google Fonts performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Instrument Serif for headings, loaded from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300..700&family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!--
+    Underwater Environment
+    - Decorative background with light shafts and particles
+    - aria-hidden to hide from assistive tech
+  -->
+  <div class="underwater-environment" aria-hidden="true">
+    <div class="water-surface"></div>
+    <div class="light-shafts">
+      <div class="light-shaft"></div>
+      <div class="light-shaft"></div>
+      <div class="light-shaft"></div>
+      <div class="light-shaft"></div>
+    </div>
+    <div class="particles" id="particles"></div>
+  </div>
+  
+  <!--
+    Header
+    - Contains logo, status, and theme toggle
+    - Uses .header and .header-top for layout
+  -->
+  <header class="header">
+    <div class="header-top">
+      <a href="index.html" class="logo">
+        <span>BLUE MARLIN</span> OS
+      </a>
+      <div class="header-controls">
+        <div class="location-time">
+          <div class="status-indicator"></div>
+          <span>DEPTH: 423M | 11:42:18</span>
+        </div>
+        <!-- Theme toggle button (moon/sun icon) -->
+        <button id="themeToggle" class="theme-toggle" aria-label="Switch to day mode">
+          <div class="theme-toggle-knob"><span class="theme-toggle-icon">☾</span></div>
+        </button>
+      </div>
+    </div>
+    <!-- Desktop navigation -->
+    <nav class="nav">
+      <ul class="nav-links">
+        <li><a href="#">PROJECTS</a></li>
+        <li><a href="#" class="active">JOURNAL</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Mobile Navigation (fixed to bottom on small screens) -->
+  <nav class="mobile-nav">
+    <a href="index.html">HOME</a>
+    <a href="#">PROJECTS</a>
+    <a href="#" class="active">JOURNAL</a>
+  </nav>
+  
+  <!--
+    Main Content
+    - Hero, project, and journal preview sections
+    - Uses .content-container for glass-morphism effect
+  -->
+  <main>
+    <!-- Hero Section -->
+    <section class="content-container">
+      <div class="hero">
+        <h1>
+          <span>BLUE MARLIN OS</span>
+          Tactical Interface
+        </h1>
+        <p>
+          Predator-class visual system with subaquatic visualization
+          and modular architecture for optimal data presentation.
+        </p>
+        <a href="#projects" class="button">DIVE IN</a>
+      </div>
+    </section>
+    
+    <!-- Current Project Section -->
+    <section id="projects" class="content-container">
+      <div class="section-header">
+        <h2><span>CURRENT</span> PROJECT</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="project-grid">
+        <div class="project-content">
+          <h3>Project Codename: Deep Dive</h3>
+          <p>
+            An immersive visual interface designed for rapid data analysis and presentation.
+            Inspired by underwater predator vision systems and tactical displays.
+          </p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-bullet"></div>
+              <div>Real-time data processing</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-bullet"></div>
+              <div>Adaptive light/dark mode</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-bullet"></div>
+              <div>Modular component architecture</div>
+            </div>
+          </div>
+          <a href="#" class="read-more">
+            VIEW PROJECT DETAILS
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+        <div class="project-image">
+          <div>Project Preview</div>
+          <div class="project-status">STATUS: ACTIVE</div>
+          <div class="project-id">PROJECT ID: 00-542-A</div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Journal Preview Section -->
+    <section class="content-container">
+      <div class="section-header">
+        <h2><span>RECENT</span> JOURNAL</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="journal-grid">
+        <!-- Journal Entry 1 -->
+        <div class="journal-card">
+          <div class="journal-date">04.12.2025</div>
+          <h3>Underwater Visibility Enhancements</h3>
+          <p>
+            Exploring new techniques for improving light shaft rendering and water caustics simulation without sacrificing performance...
+          </p>
+          <a href="#" class="read-more">
+            READ MORE
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+        <!-- Journal Entry 2 -->
+        <div class="journal-card">
+          <div class="journal-date">04.05.2025</div>
+          <h3>Day/Night Cycle Implementation</h3>
+          <p>
+            Created a seamless transition between the phase-origin (day) and phase-apex (night) modes with animated water surface reflections...
+          </p>
+          <a href="#" class="read-more">
+            READ MORE
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+        <!-- Journal Entry 3 -->
+        <div class="journal-card">
+          <div class="journal-date">03.28.2025</div>
+          <h3>Modular Component Architecture</h3>
+          <p>
+            Designed a flexible component system using Astro and React that allows for easy content management and dynamic rendering...
+          </p>
+          <a href="#" class="read-more">
+            READ MORE
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="view-all">
+        <a href="#" class="read-more">
+          VIEW ALL JOURNAL ENTRIES
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+      </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="content-container">
+      <div class="contact-section">
+        <div class="section-header">
+          <h2><span>REACH</span> OUT</h2>
+          <div class="section-divider centered"></div>
+        </div>
+        <p>
+          Interested in collaboration or have questions about my projects?
+          Let's establish a communication channel.
+        </p>
+        <div style="margin-top: 2rem;">
+          <a href="mailto:contact@example.com" class="button">INITIATE CONTACT</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="scripts.js"></script>
+</body>
+</html>

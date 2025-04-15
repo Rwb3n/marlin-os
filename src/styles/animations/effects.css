@@ -1,0 +1,149 @@
+/*
+  Blue Marlin OS - Animation & Effects Module
+  ------------------------------------------
+  This file will contain custom keyframes, animation utilities, and effect-specific styles
+  for underwater visual effects (light shafts, particles, ripples, etc.).
+  
+  - To be imported by main.css
+  - All effect-related CSS should be modular and annotated
+*/
+
+/**
+ * Blue Marlin OS - Underwater Animation Effects
+ * 
+ * This file contains customized animation utilities for creating the underwater
+ * atmosphere in Blue Marlin OS. These animations work with both day and night themes
+ * and include special considerations for accessibility.
+ *
+ * ---
+ * ANNOTATION: This CSS module provides additional animation helpers and enhancements
+ * that complement the Tailwind plugin configuration. It is used for fine-tuning
+ * visual effects, hover states, and accessibility adaptations. All classes are
+ * documented for maintainability and AI reference.
+ *
+ * Theme variations are handled via the `.phase-origin` class on <html>.
+ * Accessibility: Reduced motion is supported via media queries and class toggling.
+ */
+
+/* --- Light Shaft Specific Animations --- */
+/*
+ * .light-shaft: The main shaft element is styled and animated via Tailwind plugin.
+ * This section is reserved for any additional overrides or enhancements.
+ */
+.light-shaft {
+  /* These properties are now defined in the Tailwind plugin */
+}
+
+/* --- Particle Styling Enhancements --- */
+/*
+ * .particle: Ensures perfect circle shape and adds a subtle blur for smoother
+ * underwater motion. The main animation and positioning are handled by JS and Tailwind.
+ */
+.particle {
+  /* Ensure perfect circle regardless of size */
+  aspect-ratio: 1 / 1;
+  
+  /* Add slight motion blur for smoother animation */
+  filter: blur(0.5px);
+}
+
+/* --- Water Ripple Styling Enhancements --- */
+/*
+ * .water-ripple: Uses CSS custom properties for dynamic sizing and opacity.
+ * The main animation and positioning are handled by JS and Tailwind.
+ */
+.water-ripple {
+  /* The ripple uses CSS custom properties to handle dynamic size and fade */
+  --ripple-size: 0px;
+  --ripple-opacity: 0.6;
+  width: var(--ripple-size);
+  height: var(--ripple-size);
+  opacity: var(--ripple-opacity);
+}
+
+/* --- Content Cards Hover Animation --- */
+/*
+ * .card-hover: Adds a subtle scale and lift effect on hover for card components.
+ * Enhances interactivity and depth. Uses Tailwind utilities for transitions.
+ */
+.card-hover {
+  @apply transition-transform duration-300 ease-in-out;
+}
+
+.card-hover:hover {
+  transform: scale(1.02) translateY(-5px);
+}
+
+/* --- Arrow Hover Animation for Links --- */
+/*
+ * .arrow-icon: Used for inline SVG or icon elements in links. Animates arrow
+ * movement on hover/focus for call-to-action links.
+ */
+.arrow-icon {
+  @apply inline-block ml-1 transition-transform duration-200;
+}
+
+a:hover .arrow-icon,
+a:focus .arrow-icon {
+  @apply transform translate-x-1;
+}
+
+/* --- Status Animation Enhancement --- */
+/*
+ * .status-pulse: Animated status indicator (e.g., for online/offline).
+ * Uses theme-specific accent color and Tailwind's pulse animation.
+ */
+.status-pulse {
+  @apply w-2 h-2 rounded-full bg-apex-accent animate-pulse;
+}
+
+html.phase-origin .status-pulse {
+  @apply bg-origin-accent;
+}
+
+/* --- Button Glow Animations Enhancement --- */
+/*
+ * .btn-glow: Adds a glowing effect to buttons on hover, using theme-specific
+ * accent color and custom pulse-glow animation from Tailwind config.
+ */
+.btn-glow {
+  @apply transition-shadow duration-300;
+}
+
+.btn-glow:hover {
+  @apply animate-pulse-glow-apex;
+}
+
+html.phase-origin .btn-glow:hover {
+  @apply animate-pulse-glow-origin;
+}
+
+/* --- Reduced Motion Adaptations --- */
+/*
+ * Accessibility: Disables or reduces non-essential animations for users who
+ * prefer reduced motion. Essential transitions remain for usability.
+ */
+@media (prefers-reduced-motion: reduce) {
+  /* Allow essential animations but reduce their motion */
+  .theme-toggle-knob {
+    @apply transition-none;
+  }
+  
+  .arrow-icon {
+    @apply transition-none;
+  }
+}
+
+/* --- Dark Theme Animation Customizations --- */
+/*
+ * Enhances brightness of light shafts in dark mode when automatic color scheme
+ * detection is used (not just .phase-origin class).
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not(.phase-origin) .light-shafts {
+    /* Enhance brightness in dark mode automatic detection */
+    --max-opacity: 0.2;
+  }
+}
+
+/* Add effect-specific styles and keyframes here as needed */ 

@@ -1,0 +1,212 @@
+/*
+  Blue Marlin OS - Main Stylesheet (Tailwind Entry)
+  ------------------------------------------------
+  This file imports the base CSS reset and all modular CSS files.
+  It is the entry point for Tailwind and PostCSS processing.
+  
+  - Imports base reset
+  - Loads Tailwind utilities
+  - Imports modular CSS (components, layouts, themes, animations)
+  - No legacy or reference CSS is included
+*/
+
+@import './base/reset.css';
+
+/* Tailwind base, components, utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Additional modular CSS imports will be added here as new files are created:
+  @import './components/button.css';
+  @import './layouts/grid.css';
+  @import './themes/apex.css';
+  @import './animations/effects.css';
+*/
+
+/**
+ * Blue Marlin OS - Main Stylesheet
+ * 
+ * This is the main stylesheet for Blue Marlin OS, using Tailwind CSS.
+ * It preserves the underwater visual effects and theme system while
+ * improving maintainability through the utility-first approach.
+ *
+ * ---
+ * ANNOTATION: This file defines all global theme variables for both night (apex)
+ * and day (origin) modes. The .phase-origin class on <html> toggles between themes.
+ * All variables and theme logic are documented for maintainability and AI reference.
+ *
+ * For a full reference of theme variables and animation parameters, see docs/migration_index.md.
+ */
+
+/* Custom Theme Variables */
+@layer base {
+  :root {
+    /* --- Night Mode (phase-apex) Variables ---
+     * These variables define the default (night/deep sea) theme colors and are used
+     * when <html> does NOT have the .phase-origin class. All underwater effects and
+     * UI elements use these by default.
+     */
+    --apex-bg: #0a0e17; /* Deep blue-black background for night mode */
+    --apex-container-bg: rgba(14, 22, 39, 0.7); /* Semi-transparent container background */
+    --apex-header-bg: rgba(10, 17, 33, 0.8); /* Semi-transparent header background */
+    --apex-text: #e1e8f5; /* Light blue-white text for night mode */
+    --apex-accent: #3e8ede; /* Bright blue accent for links, buttons, highlights */
+    --apex-muted: #768aa8; /* Muted blue for secondary text */
+    --apex-accent-rgb: 62, 142, 222; /* RGB values for use in gradients/animations */
+    --apex-shafts: rgba(62, 142, 222, 0.15); /* Light shaft color for underwater effect */
+    
+    /* --- Day Mode (phase-origin) Variables ---
+     * These variables are used when <html> has the .phase-origin class, switching
+     * the UI to a warm, sunlit theme. All color values are matched to the design spec.
+     */
+    --origin-bg: #faf5f0; /* Cream background for day mode */
+    --origin-container-bg: rgba(250, 245, 240, 0.7); /* Semi-transparent container background */
+    --origin-header-bg: rgba(250, 245, 240, 0.8); /* Semi-transparent header background */
+    --origin-text: #2a2724; /* Dark brown text for day mode */
+    --origin-accent: #f27405; /* Orange accent for links, buttons, highlights */
+    --origin-muted: #a3917c; /* Muted sand for secondary text */
+    --origin-accent-rgb: 242, 116, 5; /* RGB values for use in gradients/animations */
+    --origin-shafts: rgba(242, 116, 5, 0.05); /* Light shaft color for underwater effect (day) */
+  }
+  
+  /* --- Base Styles ---
+   * Applies the default background and text color for night mode.
+   * Theme is toggled by adding/removing .phase-origin on <html>.
+   */
+  html {
+    @apply bg-apex-bg text-apex-text;
+    scroll-behavior: smooth;
+  }
+  
+  /* --- Day Theme (phase-origin) ---
+   * When .phase-origin is present on <html>, all base colors switch to day mode.
+   */
+  html.phase-origin {
+    @apply bg-origin-bg text-origin-text;
+  }
+  
+  /* Typography Base Styles */
+  body {
+    @apply font-sans antialiased;
+    font-feature-settings: 'kern' 1;
+    text-rendering: optimizeLegibility;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+    line-height: 1.2;
+  }
+  
+  h1 {
+    @apply text-4xl;
+  }
+  
+  h2 {
+    @apply text-3xl;
+  }
+  
+  h3 {
+    @apply text-2xl;
+  }
+  
+  h4 {
+    @apply text-xl;
+  }
+  
+  p {
+    @apply my-4;
+    line-height: 1.6;
+  }
+  
+  /* --- Link Colors ---
+   * Links use the accent color for the current theme.
+   */
+  a {
+    @apply text-apex-accent transition-colors duration-200;
+  }
+  
+  html.phase-origin a {
+    @apply text-origin-accent;
+  }
+  
+  a:hover {
+    @apply opacity-90;
+  }
+}
+
+/* Underwater Environment Effects */
+@layer components {
+  /* Container for both effects */
+  .underwater-environment {
+    @apply absolute inset-0 z-0 overflow-hidden;
+  }
+  
+  /* --- Theme Toggle ---
+   * The theme toggle button switches between day and night modes.
+   * - .theme-toggle: Main toggle container, background color changes with theme.
+   * - .theme-toggle-knob: Movable knob, position and color change with theme.
+   * - .theme-toggle-icon: Sun/moon icon, updates with theme.
+   */
+  .theme-toggle {
+    @apply relative w-12 h-6 bg-apex-accent border-none rounded-xl cursor-pointer transition-colors duration-300;
+  }
+  
+  html.phase-origin .theme-toggle {
+    @apply bg-origin-accent;
+  }
+  
+  .theme-toggle-knob {
+    @apply absolute left-[26px] top-[2px] w-5 h-5 bg-apex-bg rounded-full flex items-center justify-center transition-all duration-300 text-apex-text;
+  }
+  
+  html.phase-origin .theme-toggle-knob {
+    @apply left-[2px] bg-origin-bg text-origin-text transition-all duration-300;
+  }
+  
+  .theme-toggle-icon {
+    @apply block text-xs transform translate-y-0 leading-none;
+  }
+  
+  /* Layout Components */
+  .content-container {
+    /* This is defined in the Tailwind plugin for consistent styling */
+  }
+  
+  .header {
+    @apply sticky top-0 z-[100] bg-apex-header-bg backdrop-blur transition-colors duration-500;
+  }
+  
+  html.phase-origin .header {
+    @apply bg-origin-header-bg;
+  }
+  
+  /* Animation Helpers */
+  .has-animated {
+    animation-play-state: running;
+  }
+  
+  /* --- Motion Reduction ---
+   * Disables all non-essential animations and transitions for users who prefer reduced motion.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      @apply animate-none transition-none;
+    }
+    
+    .particles {
+      @apply hidden;
+    }
+  }
+}
+
+/* Import Modular CSS Files */
+@import 'base/typography.css';
+@import 'themes/night.css';
+@import 'themes/day.css';
+@import 'animations/effects.css';
+@import 'components/buttons.css';
+@import 'components/cards.css';
+@import 'components/navigation.css';
+@import 'layouts/grid.css'; 
