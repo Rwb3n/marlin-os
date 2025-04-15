@@ -58,51 +58,48 @@ Each component entry should include:
 
 *This section documents the overall project structure and organization. It will be populated as the project structure is established.*
 
-### Directory Structure
+### Directory Structure (as of current migration phase)
 
 ```
 project-root/
-├── .eleventy.js             # 11ty configuration
-├── package.json             # Project dependencies
-├── tailwind.config.js       # Tailwind CSS configuration
-├── postcss.config.js        # PostCSS configuration
-├── src/
-│   ├── styles/
-│   │   ├── main.css
-│   │   ├── base/
-│   │   │   └── reset.css
-│   │   ├── animations/
-│   │   │   └── effects.css
-│   │   ├── themes/          # (present, currently empty)
-│   │   ├── layouts/         # (present, currently empty)
-│   │   └── components/      # (present, currently empty)
-│   ├── scripts/
-│   │   ├── main.js
-│   │   └── underwater-effects.js
-│   └── _includes/
-│       ├── components/      # (present, currently empty)
-│       └── layouts/         # (present, currently empty)
-├── dist/
-│   ├── styles/
-│   │   └── main.css
-│   ├── scripts/
-│   │   ├── main.js
-│   │   └── underwater-effects.js
-│   └── css/
-│       └── styles.css
+├── .eleventy.js             # 11ty configuration (Nunjucks, passthroughs, shortcodes)
+├── package.json             # Project dependencies and scripts
+├── tailwind.config.js       # Tailwind CSS configuration (custom themes, animations)
+├── postcss.config.js        # PostCSS configuration (Tailwind, Autoprefixer)
 ├── docs/
-│   └── migration_index.md
-├── README.md
-├── codebase_state.md
-├── codebase_log.md
-├── home.html                # REFERENCE ONLY
-├── journal.html             # REFERENCE ONLY
-├── blog.html                # REFERENCE ONLY
-├── style-guide.html         # REFERENCE ONLY
-└── ... (other files)
+│   └── migration_index.md   # Comprehensive migration documentation
+├── dist/                    # Production build output (HTML, CSS, JS)
+│   ├── css/                 # Compiled CSS output
+│   └── ...                  # Other build artifacts
+├── src/
+│   ├── index.njk            # Minimal test template for 11ty + Tailwind validation
+│   ├── styles/
+│   │   ├── main.css         # Tailwind entry, imports modular CSS
+│   │   ├── base/
+│   │   │   └── reset.css    # Base CSS reset (fully annotated)
+│   │   ├── animations/
+│   │   │   └── effects.css  # Animation/effects module (annotated placeholder)
+│   │   ├── components/      # Component CSS modules (.gitkeep for tracking)
+│   │   ├── layouts/         # Layout CSS modules (.gitkeep for tracking)
+│   │   └── themes/          # Theme CSS modules (.gitkeep for tracking)
+│   ├── scripts/             # JavaScript modules (underwater effects, main.js)
+│   └── _includes/
+│       ├── layouts/         # 11ty layout templates (.gitkeep for tracking)
+│       └── components/      # 11ty component templates (.gitkeep for tracking)
+├── styles.css               # Legacy stylesheet (REFERENCE ONLY)
+├── home.html                # Reference file (not in production)
+├── journal.html             # Reference file (not in production)
+├── blog.html                # Reference file (not in production)
+├── style-guide.html         # Reference file (not in production)
+├── codebase_state.md        # Workflow state, plan, and log
+├── codebase_log.md          # Chronological log of actions/events
+└── ...                      # Other project files
 ```
 
-- **Note:** Some directories (e.g., `src/pages`, `src/projects`, `src/journal`, `public/`, `src/_data`) are referenced in documentation but do not currently exist in the file system.
+**Notes:**
+- `.gitkeep` files are present in empty directories to ensure they are tracked in version control and ready for modular CSS/template expansion.
+- All reference files (`home.html`, `journal.html`, `blog.html`, `style-guide.html`, `styles.css`) are clearly labeled and not part of the production build.
+- The structure is designed for maintainability, modularity, and clear separation of concerns for 11ty + Tailwind migration.
 
 ### Modular CSS Organization
 
@@ -130,7 +127,34 @@ project-root/
 
 ### Build Pipeline
 
-*To be populated during implementation.*
+The build pipeline for Blue Marlin OS is designed for modularity, maintainability, and rapid development. It leverages Tailwind CSS, PostCSS, and 11ty, with npm scripts orchestrating the workflow.
+
+#### Key npm Scripts (from package.json)
+
+| Script           | Command                                              | Purpose                                                                 |
+|------------------|------------------------------------------------------|-------------------------------------------------------------------------|
+| `build`          | `npm-run-all build:*`                                | Runs all build steps (CSS and 11ty) for production output               |
+| `build:css`      | `postcss src/styles/main.css -o dist/css/styles.css` | Processes main.css with PostCSS (Tailwind, Autoprefixer) to output CSS  |
+| `build:eleventy` | `eleventy`                                           | Builds the static site with 11ty using Nunjucks templates               |
+| `start`          | `npm-run-all --parallel dev:*`                       | Runs both CSS and 11ty dev servers in parallel for live development     |
+| `dev:css`        | `postcss src/styles/main.css -o dist/css/styles.css --watch` | Watches and rebuilds CSS on changes using PostCSS/Tailwind      |
+| `dev:eleventy`   | `eleventy --serve`                                   | Runs 11ty in dev mode with live reload and BrowserSync                  |
+| `clean`          | `rm -rf dist`                                        | Cleans the output directory                                             |
+
+#### Build/Dev Workflow
+
+- **Development:**
+  - Run `npm start` to launch both the 11ty dev server and Tailwind/PostCSS watcher in parallel.
+  - Edit templates, content, or CSS modules; changes are reflected live via BrowserSync and hot reload.
+  - Modular CSS is processed through PostCSS, with Tailwind utilities and custom modules combined into `dist/css/styles.css`.
+
+- **Production Build:**
+  - Run `npm run build` to generate the full static site and production CSS bundle.
+  - All modular CSS, Tailwind utilities, and custom effects are included in the final output.
+
+- **Pipeline Readiness:**
+  - The pipeline is ready for test builds, further modularization, and integration of new CSS modules and templates.
+  - See package.json for full script details and docs/migration_index.md for pipeline documentation.
 
 ---
 
@@ -861,25 +885,266 @@ html.phase-origin .read-more:focus {
 
 ### Navigation
 
-*To be populated during implementation.*
+**Purpose:** Provides primary site navigation with theme-aware colors, active link highlighting, and accessible markup.
 
-### Cards
+**Structure:**
+```html
+<nav class="nav-bar flex gap-6 bg-apex-header-bg rounded-lg px-6 py-3 shadow max-w-md w-full" aria-label="Main navigation">
+  <a href="#" class="nav-link text-apex-accent font-semibold px-2 py-1 rounded transition focus:outline-none focus:ring-2 focus:ring-apex-accent bg-apex-accent/20">Home</a>
+  <a href="#" class="nav-link text-apex-muted hover:text-apex-accent font-semibold px-2 py-1 rounded transition focus:outline-none focus:ring-2 focus:ring-apex-accent">Projects</a>
+  <a href="#" class="nav-link text-apex-muted hover:text-apex-accent font-semibold px-2 py-1 rounded transition focus:outline-none focus:ring-2 focus:ring-apex-accent">Journal</a>
+</nav>
+```
 
-*To be populated during implementation.*
+**CSS Classes:**
+- `nav-bar`: Navigation container
+- `nav-link`: Navigation link, with active/hover/focus states
 
-### Buttons & Interactive Elements
+**Usage:** See style guide demo (Navigation Component)
 
-*To be populated during implementation.*
+**Variations & States:**
+- Active link (highlighted)
+- Hover/focus (accent color, focus ring)
 
-### Form Elements
+**Dependencies:**
+- Theme system (for color classes)
 
-*To be populated during implementation.*
+**Implementation Notes:**
+- Uses `aria-label` for accessibility
+- Focus ring for keyboard navigation
+- Responsive to theme changes
 
-### Glass-morphic Containers
+**Original vs. Migrated:**
+- Original: Legacy navigation bar in `styles.css`/HTML
+- Migrated: Modular, theme-aware, Tailwind-based nav in style guide
 
-*To be populated during implementation.*
+**Visual Reference:** See style guide demo
 
 ---
+
+### Card
+
+**Purpose:** Glass-morphic container for content, with theme-aware background, shadow, and rounded corners.
+
+**Structure:**
+```html
+<div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-6 max-w-md w-full">
+  <h4 class="text-lg font-semibold mb-2">Card Title</h4>
+  <p class="mb-4">This is a sample card. It uses the <code>content-container</code> class for glass-morphism, spacing, and theme responsiveness.</p>
+  <button class="button btn-glow px-4 py-2 rounded bg-apex-accent text-white font-bold hover:opacity-90 transition">Card Action</button>
+</div>
+```
+
+**CSS Classes:**
+- `content-container`: Glass-morphic card container
+- `bg-apex-container-bg`, `rounded-lg`, `shadow-lg`, `p-6`, etc.: Tailwind utility classes
+- `button`, `btn-glow`: For action button
+
+**Usage:** See style guide demo (Card Component)
+
+**Variations & States:**
+- Default
+- Hover/focus (button)
+- Outline/hover variants (future)
+
+**Dependencies:**
+- Theme system
+- Button component
+
+**Implementation Notes:**
+- Uses backdrop blur and semi-transparent backgrounds
+- Responsive to theme changes
+
+**Original vs. Migrated:**
+- Original: Card in legacy HTML/CSS
+- Migrated: Modular, theme-aware, Tailwind-based card in style guide
+
+**Visual Reference:** See style guide demo
+
+---
+
+### Feature List
+
+**Purpose:** List of features with custom theme-aware bullets, accessible and modular.
+
+**Structure:**
+```html
+<ul class="feature-list list-none pl-0 max-w-md w-full">
+  <li class="flex items-start mb-2">
+    <span class="feature-bullet w-3 h-3 mt-1 mr-3 rounded-full bg-apex-accent shadow"></span>
+    <span>Feature text</span>
+  </li>
+  <!-- ... -->
+</ul>
+```
+
+**CSS Classes:**
+- `feature-list`: List container
+- `feature-bullet`: Custom bullet
+- Tailwind spacing/typography classes
+
+**Usage:** See style guide demo (Feature List Component)
+
+**Variations & States:**
+- Default
+- Compact/alt bullet (future)
+
+**Dependencies:**
+- Theme system
+
+**Implementation Notes:**
+- Semantic list structure
+- Bullets adapt to theme
+
+**Original vs. Migrated:**
+- Original: Feature list in legacy HTML/CSS
+- Migrated: Modular, theme-aware, Tailwind-based feature list in style guide
+
+**Visual Reference:** See style guide demo
+
+---
+
+### Call-to-Action Link
+
+**Purpose:** Prominent link with animated arrow, theme-aware color, and hover/focus effects.
+
+**Structure:**
+```html
+<a href="#" class="read-more inline-flex items-center font-semibold text-apex-accent hover:underline hover:text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition group">
+  Learn More
+  <svg class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-focus:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6l6 6-6 6"/></svg>
+</a>
+```
+
+**CSS Classes:**
+- `read-more`: Main link styling
+- Tailwind utility classes for color, spacing, focus, and animation
+
+**Usage:** See style guide demo (Call-to-Action Link Component)
+
+**Variations & States:**
+- Default
+- Large/icon variants (future)
+- Hover/focus (arrow slides, text glows)
+
+**Dependencies:**
+- Theme system
+
+**Implementation Notes:**
+- Focus ring and color contrast for accessibility
+- Animated arrow on hover/focus
+
+**Original vs. Migrated:**
+- Original: CTA link in legacy HTML/CSS
+- Migrated: Modular, theme-aware, Tailwind-based CTA link in style guide
+
+**Visual Reference:** See style guide demo
+
+---
+
+### Tooltip
+
+**Purpose:** Provides contextual information on hover or focus, with theme-aware styling and accessible markup.
+
+**Structure:**
+```html
+<div class="relative inline-block group">
+  <button type="button" aria-describedby="demo-tooltip" class="px-4 py-2 rounded bg-apex-accent text-white font-bold focus:outline-none focus:ring-2 focus:ring-apex-accent transition">Hover me</button>
+  <div id="demo-tooltip" role="tooltip" class="tooltip-content absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-apex-header-bg text-apex-text text-xs rounded shadow-lg px-3 py-2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity pointer-events-none z-20">
+    Tooltip text: Accessible, theme-aware, and animated.
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-3 h-3 bg-apex-header-bg rotate-45"></div>
+  </div>
+</div>
+```
+
+**CSS Classes:**
+- `tooltip-content`: Tooltip container
+- Tailwind utility classes for color, spacing, animation
+
+**Usage:** See style guide demo (Tooltip Component)
+
+**Variations & States:**
+- Default
+- Top/large/error variants (future)
+- Hover/focus (fade in/out)
+
+**Dependencies:**
+- Theme system
+
+**Implementation Notes:**
+- Uses `aria-describedby`, `role="tooltip"` for accessibility
+- Keyboard and mouse accessible
+- Animated with `transition-opacity`
+
+**Original vs. Migrated:**
+- Original: Tooltip in legacy HTML/CSS
+- Migrated: Modular, theme-aware, Tailwind-based tooltip in style guide
+
+**Visual Reference:** See style guide demo
+
+---
+
+### Accordion
+
+**Purpose:** Allows users to expand/collapse content sections, with theme-aware styling and accessible markup.
+
+**Structure:**
+```html
+<div class="accordion max-w-md w-full bg-apex-container-bg rounded-lg shadow-lg divide-y divide-apex-accent/20">
+  <div class="accordion-item">
+    <button type="button" aria-expanded="false" aria-controls="acc-panel-1" id="acc-trigger-1" class="w-full flex justify-between items-center px-4 py-3 text-left font-semibold text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition">
+      Accordion Item 1
+      <span class="ml-2 transition-transform">&#9662;</span>
+    </button>
+    <div id="acc-panel-1" role="region" aria-labelledby="acc-trigger-1" class="max-h-0 overflow-hidden transition-all duration-300 bg-apex-bg px-4">
+      <p class="py-3 text-apex-text">This is the content for accordion item 1. It expands and collapses with smooth animation.</p>
+    </div>
+  </div>
+  <!-- ... -->
+</div>
+```
+
+**CSS Classes:**
+- `accordion`: Accordion container
+- `accordion-item`: Accordion item
+- Tailwind utility classes for color, spacing, animation
+
+**Usage:** See style guide demo (Accordion Component)
+
+**Variations & States:**
+- Default
+- Large/outline/icon variants (future)
+- Expanded/collapsed (aria-expanded)
+
+**Dependencies:**
+- Theme system
+
+**Implementation Notes:**
+- Uses `aria-expanded`, `aria-controls`, `role="region"` for accessibility
+- Keyboard and mouse accessible
+- Animated with `transition-all` and `max-height`
+
+**Original vs. Migrated:**
+- Original: Accordion in legacy HTML/CSS
+- Migrated: Modular, theme-aware, Tailwind-based accordion in style guide
+
+**Visual Reference:** See style guide demo
+
+---
+
+## Migration Traceability
+
+### UI Components
+
+| Original Implementation | Migrated Implementation | Status |
+|-------------------------|-------------------------|--------|
+| Navigation bar (legacy HTML/CSS) | Navigation Component (style guide) | In Progress |
+| Card (legacy HTML/CSS) | Card Component (style guide) | In Progress |
+| Feature list (legacy HTML/CSS) | Feature List Component (style guide) | In Progress |
+| Call-to-action link (legacy HTML/CSS) | Call-to-Action Link Component (style guide) | In Progress |
+| Tooltip (legacy HTML/CSS) | Tooltip Component (style guide) | In Progress |
+| Accordion (legacy HTML/CSS) | Accordion Component (style guide) | In Progress |
+| *To be populated* | *To be populated* | *Not Started* |
 
 ## Layout System
 
@@ -1048,3 +1313,30 @@ Below is a template for documenting individual components:
 **Visual Reference:**
 - [Link to screenshot or design]
 ``` 
+
+### Legacy CSS Mapping: styles.css → Modular Structure
+
+The following table maps major sections and features from the original `styles.css` (legacy, REFERENCE ONLY) to their new locations in the modular Tailwind/11ty structure. This supports traceability and ensures all styles are migrated or replaced with Tailwind utilities and custom modules.
+
+| Section/Feature in styles.css         | New Module/Location                        | Notes/Status                                 |
+|---------------------------------------|--------------------------------------------|----------------------------------------------|
+| Reset & Base Styles                   | `src/styles/base/reset.css`                | Fully migrated and annotated                 |
+| Color Themes & Variables              | `tailwind.config.js` + `main.css`          | Theme variables now in Tailwind config/root  |
+| Typography Foundation                 | `main.css` + Tailwind utilities            | Migrated, uses Tailwind typography           |
+| Underwater Environment Effects        | `src/styles/animations/effects.css`        | Modularized, enhanced with Tailwind plugin   |
+| Header & Navigation                   | `components/` (future) + Tailwind          | To be modularized as components              |
+| Content Containers & Cards            | `components/` (future) + Tailwind          | To be modularized as components              |
+| Project Cards & Grid                  | `components/` (future) + Tailwind          | To be modularized as components              |
+| Feature Lists                         | `components/` (future) + Tailwind          | To be modularized as components              |
+| Call to Action Links                  | `components/` (future) + Tailwind          | To be modularized as components              |
+| Journal/Blog Cards                    | `components/` (future) + Tailwind          | To be modularized as components              |
+| Animations & Keyframes                | `animations/effects.css` + Tailwind config | Keyframes migrated to Tailwind config/module |
+| Responsive Design                     | Tailwind utilities + layouts/              | Handled by Tailwind breakpoints              |
+| Mouse Interaction Effects (Ripples)   | `animations/effects.css` + JS module       | Modularized, JS-driven                      |
+| Form Elements                         | `components/` (future) + Tailwind          | To be modularized as components              |
+| Footer Bar                            | `components/` (future) + Tailwind          | To be modularized as components              |
+
+**Notes:**
+- All new CSS is modular, annotated, and leverages Tailwind utilities where possible.
+- As each feature/component is migrated, update this table with status and references to new files.
+- This mapping ensures nothing is lost in migration and supports quality validation. 

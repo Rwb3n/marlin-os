@@ -1,19 +1,43 @@
 /**
  * Underwater Effects - JavaScript for Visual Effects
- * 
+ *
  * This file handles the dynamic underwater visual effects for Blue Marlin OS:
  * - Particle system generation and animation
  * - Water ripple effect on mouse movement
  * - Accessibility considerations for reduced motion
  * - Theme toggle functionality
+ *
+ * ---
+ * ANNOTATION: This module is responsible for all runtime visual effects that
+ * require JavaScript. It works in tandem with Tailwind CSS and custom plugins
+ * to deliver a seamless underwater experience. All functions are documented for
+ * maintainability and AI reference.
+ *
+ * Theme variations are handled via the `.phase-origin` class on <html>.
+ * Accessibility: Reduced motion is supported via media queries and runtime checks.
+ *
+ * For animation parameters and theme details, see docs/migration_index.md.
  */
 
 // Check for reduced motion preference
+// If true, disables or reduces non-essential animations for accessibility
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ----------------------
 // Particle System
 // ----------------------
+/**
+ * createParticles()
+ *
+ * Dynamically generates and animates floating particles to simulate underwater
+ * atmosphere. Each particle is given a random size, position, duration, and delay
+ * for natural movement. The effect is disabled if reduced motion is preferred.
+ *
+ * - Container: .particles (can be multiple per page)
+ * - Particle: .particle (styled via Tailwind and CSS)
+ * - Theme: Glow is enabled in night mode, disabled in day mode
+ * - Accessibility: Skipped if prefers-reduced-motion
+ */
 function createParticles() {
   // Skip particles creation if reduced motion is preferred
   if (prefersReducedMotion) return;
@@ -56,6 +80,17 @@ function createParticles() {
 // ----------------------
 // Water Ripple Effect
 // ----------------------
+/**
+ * initWaterRippleEffect()
+ *
+ * Creates interactive water ripple effects that follow the user's cursor movements.
+ * Ripples are dynamically created and animated at the mouse position, then removed
+ * after the animation completes. Throttling is used to prevent performance issues.
+ *
+ * - Element: .water-ripple (styled via Tailwind and CSS)
+ * - Theme: Gradient color changes with theme
+ * - Accessibility: Disabled if prefers-reduced-motion
+ */
 function initWaterRippleEffect() {
   // Skip water ripple effect if reduced motion is preferred
   if (prefersReducedMotion) return;
@@ -96,6 +131,17 @@ function initWaterRippleEffect() {
 // ----------------------
 // Theme Toggle Function
 // ----------------------
+/**
+ * initThemeToggle()
+ *
+ * Handles the theme toggle button, allowing users to switch between day (phase-origin)
+ * and night (phase-apex) themes. Updates the <html> class, toggle icon, and aria-label
+ * for accessibility. Saves user preference in localStorage.
+ *
+ * - Button: #themeToggle (injected via Eleventy shortcode)
+ * - Theme: .phase-origin class on <html> triggers day mode
+ * - Accessibility: Updates aria-label and icon for screen readers
+ */
 function initThemeToggle() {
   const themeToggle = document.getElementById('themeToggle');
   if (!themeToggle) return;
@@ -137,6 +183,16 @@ function initThemeToggle() {
 // ----------------------
 // Content Animation
 // ----------------------
+/**
+ * initContentAnimations()
+ *
+ * Adds entrance animation to .content-container elements as they enter the viewport.
+ * Uses a simple viewport check on scroll to trigger the animation. Disabled if
+ * reduced motion is preferred.
+ *
+ * - Element: .content-container (styled via Tailwind and CSS)
+ * - Accessibility: Disabled if prefers-reduced-motion
+ */
 function initContentAnimations() {
   if (prefersReducedMotion) return;
   
@@ -165,6 +221,10 @@ function initContentAnimations() {
 // ----------------------
 // Initialization
 // ----------------------
+/**
+ * On DOMContentLoaded, initialize all underwater effects and theme system features.
+ * Ensures all effects are only started after the DOM is ready.
+ */
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize theme toggle
   initThemeToggle();

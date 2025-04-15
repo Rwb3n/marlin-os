@@ -1,0 +1,588 @@
+{#
+  Blue Marlin OS - UI Style Guide (Nunjucks)
+  -----------------------------------------
+  This template scaffolds the style guide for all UI components, themes, and effects.
+  - Header with logo/title
+  - Navigation (placeholder for now)
+  - Theme toggle (11ty shortcode)
+  - Underwater environment (11ty shortcode)
+  - Main content area for component demos
+  - Footer
+  - Annotations for maintainability and future expansion
+#}
+
+<!DOCTYPE html>
+<html lang="en" class="phase-apex">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blue Marlin OS - UI Style Guide</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="bg-apex-bg text-apex-text min-h-screen flex flex-col">
+  {{ underwaterEnvironment() | safe }}
+  <!-- Header -->
+  <header class="header py-4 px-6 bg-apex-header-bg text-apex-accent flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <span class="font-bold text-2xl">Blue Marlin OS</span>
+      <span class="text-base font-semibold opacity-70">UI Style Guide</span>
+    </div>
+    <div class="flex items-center gap-4">
+      {{ themeToggle() | safe }}
+    </div>
+  </header>
+
+  <!-- Navigation (placeholder for future component navigation) -->
+  <nav class="w-full py-2 px-6 bg-apex-header-bg text-apex-muted">
+    <!-- TODO: Add navigation links for component sections -->
+    <span class="italic opacity-60">Component navigation coming soon…</span>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col items-center justify-start py-8 px-4">
+    <section class="w-full max-w-4xl bg-apex-container-bg rounded-lg shadow-lg p-8 mb-8">
+      <h2 class="text-xl font-semibold mb-4">Component Demos</h2>
+      <p class="mb-6">This style guide will showcase all UI components, themes, and effects for Blue Marlin OS. Use the navigation above to jump to specific sections (coming soon).</p>
+      <!-- Button Component Demo -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold mb-2">Button Component</h3>
+        <p class="mb-4 text-apex-muted">Primary action button with theme-aware accent color, glow animation, and responsive states. Uses <code>button</code> and <code>btn-glow</code> classes for styling and animation.</p>
+        <button class="button btn-glow px-6 py-2 rounded bg-apex-accent text-white font-bold hover:opacity-90 transition">Primary Action</button>
+        <div class="mt-4 bg-black/50 rounded p-4 text-xs text-white font-mono">
+          {# Code Sample #}
+          <pre><code>&lt;button class="button btn-glow px-6 py-2 rounded bg-apex-accent text-white font-bold hover:opacity-90 transition"&gt;Primary Action&lt;/button&gt;</code></pre>
+        </div>
+        <ul class="mt-2 text-sm text-apex-muted list-disc pl-5">
+          <li><strong>Theme responsive:</strong> Accent color and glow adapt to day/night mode.</li>
+          <li><strong>Accessible:</strong> Sufficient color contrast, focusable, and keyboard operable.</li>
+          <li><strong>Animation:</strong> Uses <code>pulseGlowApex</code> or <code>pulseGlow</code> for animated glow.</li>
+          <li><strong>Customizable:</strong> Add <code>button-outline</code> or <code>button-small</code> for variants (see future demos).</li>
+        </ul>
+      </div>
+      <!-- Card Component Demo -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold mb-2">Card Component</h3>
+        <p class="mb-4 text-apex-muted">A glass-morphic card with theme-aware background, shadow, and rounded corners. Demonstrates content-container styling and modular utility classes.</p>
+        <div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-6 max-w-md w-full mb-4">
+          <h4 class="text-lg font-semibold mb-2">Card Title</h4>
+          <p class="mb-4">This is a sample card. It uses the <code>content-container</code> class for glass-morphism, spacing, and theme responsiveness.</p>
+          <button class="button btn-glow px-4 py-2 rounded bg-apex-accent text-white font-bold hover:opacity-90 transition">Card Action</button>
+        </div>
+        <div class="mt-4 bg-black/50 rounded p-4 text-xs text-white font-mono">
+          {# Code Sample #}
+          <pre><code>&lt;div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-6 max-w-md w-full"&gt;
+  &lt;h4 class="text-lg font-semibold mb-2"&gt;Card Title&lt;/h4&gt;
+  &lt;p class="mb-4"&gt;This is a sample card. It uses the &lt;code&gt;content-container&lt;/code&gt; class for glass-morphism, spacing, and theme responsiveness.&lt;/p&gt;
+  &lt;button class="button btn-glow px-4 py-2 rounded bg-apex-accent text-white font-bold hover:opacity-90 transition"&gt;Card Action&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        <ul class="mt-2 text-sm text-apex-muted list-disc pl-5">
+          <li><strong>Theme responsive:</strong> Card background, shadow, and accent adapt to day/night mode.</li>
+          <li><strong>Accessible:</strong> Sufficient color contrast, focusable, and keyboard operable.</li>
+          <li><strong>Glass-morphism:</strong> Uses backdrop blur and semi-transparent backgrounds for depth.</li>
+          <li><strong>Customizable:</strong> Add <code>card-hover</code> or <code>card-outline</code> for variants (see future demos).</li>
+        </ul>
+      </div>
+      <!-- Glass-morphic Container Component Demo -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold mb-2">Glass-morphic Container Component</h3>
+        <p class="mb-4 text-apex-muted">A container with glass-morphism: backdrop blur, semi-transparent background, and theme-aware styling. Uses <code>content-container</code> and Tailwind classes for visual effect and accessibility.</p>
+        <div class="content-container bg-apex-container-bg/80 rounded-xl shadow-xl p-8 max-w-md w-full backdrop-blur-md border border-white/10">
+          <h4 class="text-lg font-semibold mb-2">Glass-morphic Container</h4>
+          <p>This container demonstrates glass-morphism with backdrop blur, transparency, and theme responsiveness. It is accessible and visually distinct in both day and night modes.</p>
+        </div>
+        <div class="mt-4 bg-black/50 rounded p-4 text-xs text-white font-mono">
+          {# Code Sample #}
+          <pre><code>&lt;div class="content-container bg-apex-container-bg/80 rounded-xl shadow-xl p-8 max-w-md w-full backdrop-blur-md border border-white/10"&gt;
+  &lt;h4 class="text-lg font-semibold mb-2"&gt;Glass-morphic Container&lt;/h4&gt;
+  &lt;p&gt;This container demonstrates glass-morphism with backdrop blur, transparency, and theme responsiveness. It is accessible and visually distinct in both day and night modes.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        <ul class="mt-2 text-sm text-apex-muted list-disc pl-5">
+          <li><strong>Theme responsive:</strong> Background, border, and shadow adapt to day/night mode using theme classes.</li>
+          <li><strong>Accessible:</strong> Sufficient color contrast, semantic structure, and keyboard navigation support.</li>
+          <li><strong>Visual effect:</strong> Uses <code>backdrop-blur-md</code> and semi-transparent backgrounds for glass-morphism.</li>
+          <li><strong>Customizable:</strong> Add <code>content-container-lg</code> or <code>glass-outline</code> for variants (see future demos).</li>
+        </ul>
+      </div>
+      <!-- Tooltip Component Demo -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold mb-2">Tooltip Component</h3>
+        <p class="mb-4 text-apex-muted">A button with a tooltip that appears on hover or focus. Uses <code>tooltip</code> and <code>tooltip-content</code> classes for styling, with theme-aware colors and accessible markup.</p>
+        <div class="relative inline-block group">
+          <button type="button" aria-describedby="demo-tooltip" class="px-4 py-2 rounded bg-apex-accent text-white font-bold focus:outline-none focus:ring-2 focus:ring-apex-accent transition">Hover me</button>
+          <div id="demo-tooltip" role="tooltip" class="tooltip-content absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-apex-header-bg text-apex-text text-xs rounded shadow-lg px-3 py-2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity pointer-events-none z-20">
+            Tooltip text: Accessible, theme-aware, and animated.
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-3 h-3 bg-apex-header-bg rotate-45"></div>
+          </div>
+        </div>
+        <div class="mt-4 bg-black/50 rounded p-4 text-xs text-white font-mono">
+          {# Code Sample #}
+          <pre><code>&lt;div class="relative inline-block group"&gt;
+  &lt;button type="button" aria-describedby="demo-tooltip" class="px-4 py-2 rounded bg-apex-accent text-white font-bold focus:outline-none focus:ring-2 focus:ring-apex-accent transition"&gt;Hover me&lt;/button&gt;
+  &lt;div id="demo-tooltip" role="tooltip" class="tooltip-content absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-apex-header-bg text-apex-text text-xs rounded shadow-lg px-3 py-2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity pointer-events-none z-20"&gt;
+    Tooltip text: Accessible, theme-aware, and animated.
+    &lt;div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-3 h-3 bg-apex-header-bg rotate-45"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        <ul class="mt-2 text-sm text-apex-muted list-disc pl-5">
+          <li><strong>Theme responsive:</strong> Tooltip background and text adapt to day/night mode using theme classes.</li>
+          <li><strong>Accessible:</strong> Uses <code>aria-describedby</code>, <code>role="tooltip"</code>, and keyboard focus support.</li>
+          <li><strong>Animation:</strong> Tooltip fades in/out on hover/focus with <code>transition-opacity</code>.</li>
+          <li><strong>Customizable:</strong> Add <code>tooltip-top</code>, <code>tooltip-lg</code>, or <code>tooltip-error</code> for variants (see future demos).</li>
+        </ul>
+      </div>
+      <!-- Accordion Component Demo -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold mb-2">Accordion Component</h3>
+        <p class="mb-4 text-apex-muted">A two-item accordion with expand/collapse animation, theme-aware styling, and accessible markup. Uses <code>accordion</code> and <code>accordion-item</code> classes for structure and state.</p>
+        <div class="accordion max-w-md w-full bg-apex-container-bg rounded-lg shadow-lg divide-y divide-apex-accent/20">
+          <div class="accordion-item">
+            <button type="button" aria-expanded="false" aria-controls="acc-panel-1" id="acc-trigger-1" class="w-full flex justify-between items-center px-4 py-3 text-left font-semibold text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition">
+              Accordion Item 1
+              <span class="ml-2 transition-transform">&#9662;</span>
+            </button>
+            <div id="acc-panel-1" role="region" aria-labelledby="acc-trigger-1" class="max-h-0 overflow-hidden transition-all duration-300 bg-apex-bg px-4">
+              <p class="py-3 text-apex-text">This is the content for accordion item 1. It expands and collapses with smooth animation.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button type="button" aria-expanded="false" aria-controls="acc-panel-2" id="acc-trigger-2" class="w-full flex justify-between items-center px-4 py-3 text-left font-semibold text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition">
+              Accordion Item 2
+              <span class="ml-2 transition-transform">&#9662;</span>
+            </button>
+            <div id="acc-panel-2" role="region" aria-labelledby="acc-trigger-2" class="max-h-0 overflow-hidden transition-all duration-300 bg-apex-bg px-4">
+              <p class="py-3 text-apex-text">This is the content for accordion item 2. It expands and collapses with smooth animation.</p>
+            </div>
+          </div>
+        </div>
+        <script>
+        // Simple accordion JS for demo (expand/collapse)
+        document.querySelectorAll('.accordion-item button').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !expanded);
+            const panel = document.getElementById(this.getAttribute('aria-controls'));
+            if (!expanded) {
+              panel.style.maxHeight = panel.scrollHeight + 'px';
+            } else {
+              panel.style.maxHeight = '0px';
+            }
+          });
+        });
+        </script>
+        <div class="mt-4 bg-black/50 rounded p-4 text-xs text-white font-mono">
+          {# Code Sample #}
+          <pre><code>&lt;div class="accordion max-w-md w-full bg-apex-container-bg rounded-lg shadow-lg divide-y divide-apex-accent/20"&gt;
+  &lt;div class="accordion-item"&gt;
+    &lt;button type="button" aria-expanded="false" aria-controls="acc-panel-1" id="acc-trigger-1" class="w-full flex justify-between items-center px-4 py-3 text-left font-semibold text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition"&gt;
+      Accordion Item 1
+      &lt;span class="ml-2 transition-transform"&gt;&#9662;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div id="acc-panel-1" role="region" aria-labelledby="acc-trigger-1" class="max-h-0 overflow-hidden transition-all duration-300 bg-apex-bg px-4"&gt;
+      &lt;p class="py-3 text-apex-text"&gt;This is the content for accordion item 1. It expands and collapses with smooth animation.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="accordion-item"&gt;
+    &lt;button type="button" aria-expanded="false" aria-controls="acc-panel-2" id="acc-trigger-2" class="w-full flex justify-between items-center px-4 py-3 text-left font-semibold text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition"&gt;
+      Accordion Item 2
+      &lt;span class="ml-2 transition-transform"&gt;&#9662;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div id="acc-panel-2" role="region" aria-labelledby="acc-trigger-2" class="max-h-0 overflow-hidden transition-all duration-300 bg-apex-bg px-4"&gt;
+      &lt;p class="py-3 text-apex-text"&gt;This is the content for accordion item 2. It expands and collapses with smooth animation.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+// Simple accordion JS for demo (expand/collapse)
+document.querySelectorAll('.accordion-item button').forEach(btn =&gt; {
+  btn.addEventListener('click', function() {
+    const expanded = this.getAttribute('aria-expanded') === 'true';
+    this.setAttribute('aria-expanded', !expanded);
+    const panel = document.getElementById(this.getAttribute('aria-controls'));
+    if (!expanded) {
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    } else {
+      panel.style.maxHeight = '0px';
+    }
+  });
+});
+&lt;/script&gt;</code></pre>
+        </div>
+        <ul class="mt-2 text-sm text-apex-muted list-disc pl-5">
+          <li><strong>Theme responsive:</strong> Accordion background, border, and text adapt to day/night mode using theme classes.</li>
+          <li><strong>Accessible:</strong> Uses <code>aria-expanded</code>, <code>aria-controls</code>, <code>role="region"</code>, and keyboard navigation support.</li>
+          <li><strong>Animation:</strong> Expands/collapses with smooth <code>transition-all</code> and <code>max-height</code> animation.</li>
+          <li><strong>Customizable:</strong> Add <code>accordion-lg</code>, <code>accordion-outline</code>, or <code>accordion-icon</code> for variants (see future demos).</li>
+        </ul>
+      </div>
+      <!-- Tabs Component Demo -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold mb-2">Tabs Component</h3>
+        <p class="mb-4 text-apex-muted">A three-tab interface with animated active indicator, theme-aware styling, and accessible markup. Uses <code>tabs</code> and <code>tab</code> classes for structure and state.</p>
+        <div class="tabs-demo max-w-md w-full bg-apex-container-bg rounded-lg shadow-lg p-6">
+          <div role="tablist" aria-label="Demo Tabs" class="flex border-b border-apex-accent/30 mb-4">
+            <button type="button" role="tab" aria-selected="true" aria-controls="tab-panel-1" id="tab-1" tabindex="0" class="tab px-4 py-2 font-semibold text-apex-accent border-b-2 border-apex-accent bg-apex-bg rounded-t transition focus:outline-none focus:ring-2 focus:ring-apex-accent">Tab 1</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="tab-panel-2" id="tab-2" tabindex="-1" class="tab px-4 py-2 font-semibold text-apex-muted border-b-2 border-transparent bg-apex-bg rounded-t transition focus:outline-none focus:ring-2 focus:ring-apex-accent">Tab 2</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="tab-panel-3" id="tab-3" tabindex="-1" class="tab px-4 py-2 font-semibold text-apex-muted border-b-2 border-transparent bg-apex-bg rounded-t transition focus:outline-none focus:ring-2 focus:ring-apex-accent">Tab 3</button>
+          </div>
+          <div id="tab-panel-1" role="tabpanel" aria-labelledby="tab-1" class="tab-panel">
+            <p class="text-apex-text">This is the content for Tab 1. Tabs are fully accessible and theme-responsive.</p>
+          </div>
+          <div id="tab-panel-2" role="tabpanel" aria-labelledby="tab-2" class="tab-panel hidden">
+            <p class="text-apex-text">This is the content for Tab 2. Switch tabs using mouse or keyboard.</p>
+          </div>
+          <div id="tab-panel-3" role="tabpanel" aria-labelledby="tab-3" class="tab-panel hidden">
+            <p class="text-apex-text">This is the content for Tab 3. All states are animated and accessible.</p>
+          </div>
+        </div>
+        <script>
+        // Simple tabs JS for demo (keyboard/mouse accessible)
+        (function() {
+          const tabs = document.querySelectorAll('.tabs-demo [role="tab"]');
+          const panels = document.querySelectorAll('.tabs-demo .tab-panel');
+          tabs.forEach((tab, idx) => {
+            tab.addEventListener('click', () => activateTab(idx));
+            tab.addEventListener('keydown', e => {
+              if (e.key === 'ArrowRight') activateTab((idx + 1) % tabs.length);
+              if (e.key === 'ArrowLeft') activateTab((idx - 1 + tabs.length) % tabs.length);
+            });
+          });
+          function activateTab(i) {
+            tabs.forEach((tab, j) => {
+              tab.setAttribute('aria-selected', i === j ? 'true' : 'false');
+              tab.tabIndex = i === j ? 0 : -1;
+              tab.classList.toggle('text-apex-accent', i === j);
+              tab.classList.toggle('border-apex-accent', i === j);
+              tab.classList.toggle('text-apex-muted', i !== j);
+              tab.classList.toggle('border-transparent', i !== j);
+            });
+            panels.forEach((panel, j) => {
+              panel.classList.toggle('hidden', i !== j);
+            });
+            tabs[i].focus();
+          }
+        })();
+        </script>
+        <div class="mt-4 bg-black/50 rounded p-4 text-xs text-white font-mono">
+          {# Code Sample #}
+          <pre><code>&lt;div class="tabs-demo max-w-md w-full bg-apex-container-bg rounded-lg shadow-lg p-6"&gt;
+  &lt;div role="tablist" aria-label="Demo Tabs" class="flex border-b border-apex-accent/30 mb-4"&gt;
+    &lt;button type="button" role="tab" aria-selected="true" aria-controls="tab-panel-1" id="tab-1" tabindex="0" class="tab px-4 py-2 font-semibold text-apex-accent border-b-2 border-apex-accent bg-apex-bg rounded-t transition focus:outline-none focus:ring-2 focus:ring-apex-accent"&gt;Tab 1&lt;/button&gt;
+    &lt;button type="button" role="tab" aria-selected="false" aria-controls="tab-panel-2" id="tab-2" tabindex="-1" class="tab px-4 py-2 font-semibold text-apex-muted border-b-2 border-transparent bg-apex-bg rounded-t transition focus:outline-none focus:ring-2 focus:ring-apex-accent"&gt;Tab 2&lt;/button&gt;
+    &lt;button type="button" role="tab" aria-selected="false" aria-controls="tab-panel-3" id="tab-3" tabindex="-1" class="tab px-4 py-2 font-semibold text-apex-muted border-b-2 border-transparent bg-apex-bg rounded-t transition focus:outline-none focus:ring-2 focus:ring-apex-accent"&gt;Tab 3&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div id="tab-panel-1" role="tabpanel" aria-labelledby="tab-1" class="tab-panel"&gt;
+    &lt;p class="text-apex-text"&gt;This is the content for Tab 1. Tabs are fully accessible and theme-responsive.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div id="tab-panel-2" role="tabpanel" aria-labelledby="tab-2" class="tab-panel hidden"&gt;
+    &lt;p class="text-apex-text"&gt;This is the content for Tab 2. Switch tabs using mouse or keyboard.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div id="tab-panel-3" role="tabpanel" aria-labelledby="tab-3" class="tab-panel hidden"&gt;
+    &lt;p class="text-apex-text"&gt;This is the content for Tab 3. All states are animated and accessible.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+// Simple tabs JS for demo (keyboard/mouse accessible)
+(function() {
+  const tabs = document.querySelectorAll('.tabs-demo [role=\"tab\"]');
+  const panels = document.querySelectorAll('.tabs-demo .tab-panel');
+  tabs.forEach((tab, idx) => {
+    tab.addEventListener('click', () => activateTab(idx));
+    tab.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') activateTab((idx + 1) % tabs.length);
+      if (e.key === 'ArrowLeft') activateTab((idx - 1 + tabs.length) % tabs.length);
+    });
+  });
+  function activateTab(i) {
+    tabs.forEach((tab, j) => {
+      tab.setAttribute('aria-selected', i === j ? 'true' : 'false');
+      tab.tabIndex = i === j ? 0 : -1;
+      tab.classList.toggle('text-apex-accent', i === j);
+      tab.classList.toggle('border-apex-accent', i === j);
+      tab.classList.toggle('text-apex-muted', i !== j);
+      tab.classList.toggle('border-transparent', i !== j);
+    });
+    panels.forEach((panel, j) => {
+      panel.classList.toggle('hidden', i !== j);
+    });
+    tabs[i].focus();
+  }
+})();
+&lt;/script&gt;</code></pre>
+        </div>
+        <ul class="mt-2 text-sm text-apex-muted list-disc pl-5">
+          <li><strong>Theme responsive:</strong> Tabs, indicator, and content adapt to day/night mode using theme classes.</li>
+          <li><strong>Accessible:</strong> Uses <code>role="tablist"</code>, <code>role="tab"</code>, <code>role="tabpanel"</code>, <code>aria-selected</code>, <code>aria-controls</code>, <code>aria-labelledby</code>, and keyboard navigation support.</li>
+          <li><strong>Animation:</strong> Active indicator and content transitions are animated for smooth UX.</li>
+          <li><strong>Customizable:</strong> Add <code>tab-lg</code>, <code>tab-outline</code>, or <code>tab-icon</code> for variants (see future demos).</li>
+        </ul>
+      </div>
+      <!-- Card Variants Demo -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold mb-2">Card Variants Demo</h3>
+        <p class="mb-4 text-apex-muted">Three card variants: default, outlined, and hoverable. Each uses <code>content-container</code> and Tailwind classes for theme-aware styling and accessibility.</p>
+        <div class="flex flex-col gap-6 max-w-2xl w-full">
+          <!-- Default Card -->
+          <div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-6">
+            <h4 class="text-lg font-semibold mb-2">Default Card</h4>
+            <p class="mb-2">This is the default card variant. It uses a glass-morphic background and standard shadow.</p>
+          </div>
+          <!-- Outlined Card -->
+          <div class="content-container bg-apex-container-bg/80 rounded-lg shadow p-6 border border-apex-accent/40">
+            <h4 class="text-lg font-semibold mb-2">Outlined Card</h4>
+            <p class="mb-2">This card variant adds a subtle accent border for extra emphasis.</p>
+          </div>
+          <!-- Hoverable Card -->
+          <div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-6 transition-transform duration-200 hover:scale-105 hover:shadow-xl focus-within:scale-105 focus-within:shadow-xl cursor-pointer">
+            <h4 class="text-lg font-semibold mb-2">Hoverable Card</h4>
+            <p class="mb-2">This card variant animates on hover/focus for interactive feedback.</p>
+          </div>
+        </div>
+        <div class="mt-4 bg-black/50 rounded p-4 text-xs text-white font-mono">
+          {# Code Sample #}
+          <pre><code>&lt;!-- Default Card --&gt;
+&lt;div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-6"&gt;
+  &lt;h4 class="text-lg font-semibold mb-2"&gt;Default Card&lt;/h4&gt;
+  &lt;p class="mb-2"&gt;This is the default card variant. It uses a glass-morphic background and standard shadow.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Outlined Card --&gt;
+&lt;div class="content-container bg-apex-container-bg/80 rounded-lg shadow p-6 border border-apex-accent/40"&gt;
+  &lt;h4 class="text-lg font-semibold mb-2"&gt;Outlined Card&lt;/h4&gt;
+  &lt;p class="mb-2"&gt;This card variant adds a subtle accent border for extra emphasis.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Hoverable Card --&gt;
+&lt;div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-6 transition-transform duration-200 hover:scale-105 hover:shadow-xl focus-within:scale-105 focus-within:shadow-xl cursor-pointer"&gt;
+  &lt;h4 class="text-lg font-semibold mb-2"&gt;Hoverable Card&lt;/h4&gt;
+  &lt;p class="mb-2"&gt;This card variant animates on hover/focus for interactive feedback.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        <ul class="mt-2 text-sm text-apex-muted list-disc pl-5">
+          <li><strong>Theme responsive:</strong> All card variants adapt to day/night mode using theme classes.</li>
+          <li><strong>Accessible:</strong> Sufficient color contrast, semantic structure, and keyboard navigation support.</li>
+          <li><strong>Variants:</strong> Outlined adds a border, hoverable animates on hover/focus, default is static.</li>
+          <li><strong>Customizable:</strong> Add <code>card-lg</code>, <code>card-outline</code>, or <code>card-hover</code> for more variants (see future demos).</li>
+        </ul>
+      </div>
+      <!-- Project Card Component Demo -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold mb-2">Project Card Component</h3>
+        <p class="mb-4 text-apex-muted">A modular project card for use in project lists and grids. Includes title, description, tags, and a call-to-action button. Uses <code>project-card</code> and Tailwind classes for theme-aware styling and accessibility.</p>
+        <div class="project-card content-container bg-apex-container-bg rounded-xl shadow-lg p-6 max-w-md w-full flex flex-col gap-4">
+          <div>
+            <h4 class="text-xl font-bold mb-1">Blue Marlin Underwater Explorer</h4>
+            <p class="text-apex-muted mb-2">A real-time underwater simulation with dynamic light shafts, particles, and theme transitions. Built with 11ty, Tailwind, and custom JS effects.</p>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-2">
+            <span class="inline-block bg-apex-accent/20 text-apex-accent text-xs font-semibold px-2 py-1 rounded">11ty</span>
+            <span class="inline-block bg-apex-accent/20 text-apex-accent text-xs font-semibold px-2 py-1 rounded">Tailwind</span>
+            <span class="inline-block bg-apex-accent/20 text-apex-accent text-xs font-semibold px-2 py-1 rounded">JS Effects</span>
+          </div>
+          <button class="read-more inline-flex items-center font-semibold text-apex-accent hover:underline hover:text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition group self-start">
+            View Project
+            <svg class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-focus:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6l6 6-6 6"/></svg>
+          </button>
+        </div>
+        <div class="mt-4 bg-black/50 rounded p-4 text-xs text-white font-mono">
+          {# Code Sample #}
+          <pre><code>&lt;div class="project-card content-container bg-apex-container-bg rounded-xl shadow-lg p-6 max-w-md w-full flex flex-col gap-4"&gt;
+  &lt;div&gt;
+    &lt;h4 class="text-xl font-bold mb-1"&gt;Blue Marlin Underwater Explorer&lt;/h4&gt;
+    &lt;p class="text-apex-muted mb-2"&gt;A real-time underwater simulation with dynamic light shafts, particles, and theme transitions. Built with 11ty, Tailwind, and custom JS effects.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="flex flex-wrap gap-2 mb-2"&gt;
+    &lt;span class="inline-block bg-apex-accent/20 text-apex-accent text-xs font-semibold px-2 py-1 rounded"&gt;11ty&lt;/span&gt;
+    &lt;span class="inline-block bg-apex-accent/20 text-apex-accent text-xs font-semibold px-2 py-1 rounded"&gt;Tailwind&lt;/span&gt;
+    &lt;span class="inline-block bg-apex-accent/20 text-apex-accent text-xs font-semibold px-2 py-1 rounded"&gt;JS Effects&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;button class="read-more inline-flex items-center font-semibold text-apex-accent hover:underline hover:text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition group self-start"&gt;
+    View Project
+    &lt;svg class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-focus:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6l6 6-6 6"/&gt;&lt;/svg&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        <ul class="mt-2 text-sm text-apex-muted list-disc pl-5">
+          <li><strong>Theme responsive:</strong> Card, tags, and button adapt to day/night mode using theme classes.</li>
+          <li><strong>Accessible:</strong> Sufficient color contrast, semantic structure, focus ring, and keyboard navigation support.</li>
+          <li><strong>Modular:</strong> Designed for use in project lists and grid layouts.</li>
+          <li><strong>Customizable:</strong> Add <code>project-card-lg</code>, <code>project-card-outline</code>, or <code>project-card-hover</code> for variants (see future demos).</li>
+        </ul>
+      </div>
+      <!-- Feature List Component Demo -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold mb-2">Feature List Component</h3>
+        <p class="mb-4 text-apex-muted">A list of features with custom theme-aware bullets. Demonstrates accessible, modular list styling using <code>feature-list</code> and <code>feature-bullet</code> classes.</p>
+        <ul class="feature-list list-none pl-0 max-w-md w-full mb-4">
+          <li class="flex items-start mb-2">
+            <span class="feature-bullet w-3 h-3 mt-1 mr-3 rounded-full bg-apex-accent shadow"></span>
+            <span>Underwater visual effects with light shafts and particles</span>
+          </li>
+          <li class="flex items-start mb-2">
+            <span class="feature-bullet w-3 h-3 mt-1 mr-3 rounded-full bg-apex-accent shadow"></span>
+            <span>Dual theme system with animated toggle and color transitions</span>
+          </li>
+          <li class="flex items-start">
+            <span class="feature-bullet w-3 h-3 mt-1 mr-3 rounded-full bg-apex-accent shadow"></span>
+            <span>Glass-morphic containers for modern, immersive UI</span>
+          </li>
+        </ul>
+        <div class="mt-4 bg-black/50 rounded p-4 text-xs text-white font-mono">
+          {# Code Sample #}
+          <pre><code>&lt;ul class="feature-list list-none pl-0 max-w-md w-full"&gt;
+  &lt;li class="flex items-start mb-2"&gt;
+    &lt;span class="feature-bullet w-3 h-3 mt-1 mr-3 rounded-full bg-apex-accent shadow"&gt;&lt;/span&gt;
+    &lt;span&gt;Underwater visual effects with light shafts and particles&lt;/span&gt;
+  &lt;/li&gt;
+  &lt;li class="flex items-start mb-2"&gt;
+    &lt;span class="feature-bullet w-3 h-3 mt-1 mr-3 rounded-full bg-apex-accent shadow"&gt;&lt;/span&gt;
+    &lt;span&gt;Dual theme system with animated toggle and color transitions&lt;/span&gt;
+  &lt;/li&gt;
+  &lt;li class="flex items-start"&gt;
+    &lt;span class="feature-bullet w-3 h-3 mt-1 mr-3 rounded-full bg-apex-accent shadow"&gt;&lt;/span&gt;
+    &lt;span&gt;Glass-morphic containers for modern, immersive UI&lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+        </div>
+        <ul class="mt-2 text-sm text-apex-muted list-disc pl-5">
+          <li><strong>Theme responsive:</strong> Bullets and text adapt to day/night mode using <code>bg-apex-accent</code> and theme classes.</li>
+          <li><strong>Accessible:</strong> List structure is semantic, bullets have sufficient contrast, and spacing aids readability.</li>
+          <li><strong>Customizable:</strong> Add <code>feature-bullet-alt</code> or <code>feature-list-compact</code> for variants (see future demos).</li>
+        </ul>
+      </div>
+      <!-- Navigation Component Demo -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold mb-2">Navigation Component</h3>
+        <p class="mb-4 text-apex-muted">A horizontal navigation bar with theme-aware colors, active link highlighting, and accessible markup. Uses <code>nav-bar</code> and <code>nav-link</code> classes for styling and state management.</p>
+        <nav class="nav-bar flex gap-6 bg-apex-header-bg rounded-lg px-6 py-3 shadow max-w-md w-full mb-4" aria-label="Main navigation">
+          <a href="#" class="nav-link text-apex-accent font-semibold px-2 py-1 rounded transition focus:outline-none focus:ring-2 focus:ring-apex-accent bg-apex-accent/20">Home</a>
+          <a href="#" class="nav-link text-apex-muted hover:text-apex-accent font-semibold px-2 py-1 rounded transition focus:outline-none focus:ring-2 focus:ring-apex-accent">Projects</a>
+          <a href="#" class="nav-link text-apex-muted hover:text-apex-accent font-semibold px-2 py-1 rounded transition focus:outline-none focus:ring-2 focus:ring-apex-accent">Journal</a>
+        </nav>
+        <div class="mt-4 bg-black/50 rounded p-4 text-xs text-white font-mono">
+          {# Code Sample #}
+          <pre><code>&lt;nav class="nav-bar flex gap-6 bg-apex-header-bg rounded-lg px-6 py-3 shadow max-w-md w-full" aria-label="Main navigation"&gt;
+  &lt;a href="#" class="nav-link text-apex-accent font-semibold px-2 py-1 rounded transition focus:outline-none focus:ring-2 focus:ring-apex-accent bg-apex-accent/20"&gt;Home&lt;/a&gt;
+  &lt;a href="#" class="nav-link text-apex-muted hover:text-apex-accent font-semibold px-2 py-1 rounded transition focus:outline-none focus:ring-2 focus:ring-apex-accent"&gt;Projects&lt;/a&gt;
+  &lt;a href="#" class="nav-link text-apex-muted hover:text-apex-accent font-semibold px-2 py-1 rounded transition focus:outline-none focus:ring-2 focus:ring-apex-accent"&gt;Journal&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+        <ul class="mt-2 text-sm text-apex-muted list-disc pl-5">
+          <li><strong>Theme responsive:</strong> Background, accent, and text colors adapt to day/night mode.</li>
+          <li><strong>Accessible:</strong> Uses <code>aria-label</code> for navigation, focus rings for keyboard users, and clear active state.</li>
+          <li><strong>Active state:</strong> The current page link is highlighted with accent color and background.</li>
+          <li><strong>Customizable:</strong> Add <code>nav-link-active</code> or <code>nav-bar-vertical</code> for variants (see future demos).</li>
+        </ul>
+      </div>
+      <!-- Call-to-Action Link Component Demo -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold mb-2">Call-to-Action Link Component</h3>
+        <p class="mb-4 text-apex-muted">A call-to-action link with animated arrow, theme-aware color, and hover/focus effects. Uses <code>read-more</code> class for styling and animation.</p>
+        <a href="#" class="read-more inline-flex items-center font-semibold text-apex-accent hover:underline hover:text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition group">
+          Learn More
+          <svg class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-focus:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6l6 6-6 6"/></svg>
+        </a>
+        <div class="mt-4 bg-black/50 rounded p-4 text-xs text-white font-mono">
+          {# Code Sample #}
+          <pre><code>&lt;a href="#" class="read-more inline-flex items-center font-semibold text-apex-accent hover:underline hover:text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition group"&gt;
+  Learn More
+  &lt;svg class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-focus:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6l6 6-6 6"/&gt;&lt;/svg&gt;
+&lt;/a&gt;</code></pre>
+        </div>
+        <ul class="mt-2 text-sm text-apex-muted list-disc pl-5">
+          <li><strong>Theme responsive:</strong> Accent color and arrow adapt to day/night mode.</li>
+          <li><strong>Accessible:</strong> Focus ring, sufficient color contrast, and semantic link markup.</li>
+          <li><strong>Animation:</strong> Arrow slides right on hover/focus, text glows with theme accent.</li>
+          <li><strong>Customizable:</strong> Add <code>read-more-large</code> or <code>read-more-icon</code> for variants (see future demos).</li>
+        </ul>
+      </div>
+      <!-- Form Elements Component Demo -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold mb-2">Form Elements Component</h3>
+        <p class="mb-4 text-apex-muted">A demo form with theme-aware input, select, and button. Shows accessible, responsive form styling using Tailwind and custom classes.</p>
+        <form class="space-y-4 max-w-md w-full bg-apex-container-bg rounded-lg shadow-lg p-6">
+          <div>
+            <label for="demo-input" class="block text-sm font-medium text-apex-muted mb-1">Text Input</label>
+            <input id="demo-input" name="demo-input" type="text" placeholder="Enter text..." class="w-full px-3 py-2 rounded bg-apex-bg text-apex-text border border-apex-accent/30 focus:border-apex-accent focus:ring-2 focus:ring-apex-accent outline-none transition" />
+          </div>
+          <div>
+            <label for="demo-select" class="block text-sm font-medium text-apex-muted mb-1">Select Option</label>
+            <select id="demo-select" name="demo-select" class="w-full px-3 py-2 rounded bg-apex-bg text-apex-text border border-apex-accent/30 focus:border-apex-accent focus:ring-2 focus:ring-apex-accent outline-none transition">
+              <option value="">Choose an option…</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+            </select>
+          </div>
+          <button type="submit" class="button btn-glow px-6 py-2 rounded bg-apex-accent text-white font-bold hover:opacity-90 transition">Submit</button>
+        </form>
+        <div class="mt-4 bg-black/50 rounded p-4 text-xs text-white font-mono">
+          {# Code Sample #}
+          <pre><code>&lt;form class="space-y-4 max-w-md w-full bg-apex-container-bg rounded-lg shadow-lg p-6"&gt;
+  &lt;div&gt;
+    &lt;label for="demo-input" class="block text-sm font-medium text-apex-muted mb-1"&gt;Text Input&lt;/label&gt;
+    &lt;input id="demo-input" name="demo-input" type="text" placeholder="Enter text..." class="w-full px-3 py-2 rounded bg-apex-bg text-apex-text border border-apex-accent/30 focus:border-apex-accent focus:ring-2 focus:ring-apex-accent outline-none transition" /&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label for="demo-select" class="block text-sm font-medium text-apex-muted mb-1"&gt;Select Option&lt;/label&gt;
+    &lt;select id="demo-select" name="demo-select" class="w-full px-3 py-2 rounded bg-apex-bg text-apex-text border border-apex-accent/30 focus:border-apex-accent focus:ring-2 focus:ring-apex-accent outline-none transition"&gt;
+      &lt;option value=""&gt;Choose an option…&lt;/option&gt;
+      &lt;option value="1"&gt;Option 1&lt;/option&gt;
+      &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/div&gt;
+  &lt;button type="submit" class="button btn-glow px-6 py-2 rounded bg-apex-accent text-white font-bold hover:opacity-90 transition"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+        </div>
+        <ul class="mt-2 text-sm text-apex-muted list-disc pl-5">
+          <li><strong>Theme responsive:</strong> Inputs, select, and button adapt to day/night mode using theme classes.</li>
+          <li><strong>Accessible:</strong> Proper labels, focus rings, and sufficient color contrast for all elements.</li>
+          <li><strong>States:</strong> Focus, hover, and active states are clearly indicated for all controls.</li>
+          <li><strong>Customizable:</strong> Add <code>input-error</code>, <code>input-success</code>, or <code>form-compact</code> for variants (see future demos).</li>
+        </ul>
+      </div>
+      <!-- Custom Checkbox & Radio Component Demo -->
+      <div class="mb-10">
+        <h3 class="text-lg font-bold mb-2">Custom Checkbox & Radio Component</h3>
+        <p class="mb-4 text-apex-muted">Accessible, theme-aware custom checkbox and radio button. Uses <code>custom-checkbox</code> and <code>custom-radio</code> classes for styling and state management.</p>
+        <form class="flex flex-col gap-4 max-w-md w-full bg-apex-container-bg rounded-lg shadow-lg p-6">
+          <div class="flex items-center gap-3">
+            <input id="demo-checkbox" name="demo-checkbox" type="checkbox" class="custom-checkbox h-5 w-5 rounded border border-apex-accent/40 bg-apex-bg text-apex-accent focus:ring-2 focus:ring-apex-accent transition checked:bg-apex-accent checked:border-apex-accent" />
+            <label for="demo-checkbox" class="text-apex-text text-sm font-medium select-none">Custom Checkbox</label>
+          </div>
+          <div class="flex items-center gap-3">
+            <input id="demo-radio" name="demo-radio-group" type="radio" class="custom-radio h-5 w-5 rounded-full border border-apex-accent/40 bg-apex-bg text-apex-accent focus:ring-2 focus:ring-apex-accent transition checked:bg-apex-accent checked:border-apex-accent" />
+            <label for="demo-radio" class="text-apex-text text-sm font-medium select-none">Custom Radio</label>
+          </div>
+        </form>
+        <div class="mt-4 bg-black/50 rounded p-4 text-xs text-white font-mono">
+          {# Code Sample #}
+          <pre><code>&lt;form class="flex flex-col gap-4 max-w-md w-full bg-apex-container-bg rounded-lg shadow-lg p-6"&gt;
+  &lt;div class="flex items-center gap-3"&gt;
+    &lt;input id="demo-checkbox" name="demo-checkbox" type="checkbox" class="custom-checkbox h-5 w-5 rounded border border-apex-accent/40 bg-apex-bg text-apex-accent focus:ring-2 focus:ring-apex-accent transition checked:bg-apex-accent checked:border-apex-accent" /&gt;
+    &lt;label for="demo-checkbox" class="text-apex-text text-sm font-medium select-none"&gt;Custom Checkbox&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class="flex items-center gap-3"&gt;
+    &lt;input id="demo-radio" name="demo-radio-group" type="radio" class="custom-radio h-5 w-5 rounded-full border border-apex-accent/40 bg-apex-bg text-apex-accent focus:ring-2 focus:ring-apex-accent transition checked:bg-apex-accent checked:border-apex-accent" /&gt;
+    &lt;label for="demo-radio" class="text-apex-text text-sm font-medium select-none"&gt;Custom Radio&lt;/label&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+        </div>
+        <ul class="mt-2 text-sm text-apex-muted list-disc pl-5">
+          <li><strong>Theme responsive:</strong> Checkbox and radio adapt to day/night mode using theme classes.</li>
+          <li><strong>Accessible:</strong> Proper labels, focus rings, and sufficient color contrast for all elements. Keyboard and screen reader friendly.</li>
+          <li><strong>States:</strong> Focus, checked, and hover states are clearly indicated for all controls.</li>
+          <li><strong>Customizable:</strong> Add <code>custom-checkbox-outline</code>, <code>custom-radio-outline</code>, or <code>form-compact</code> for variants (see future demos).</li>
+        </ul>
+      </div>
+      <!-- TODO: Add more component demo sections here -->
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-bar py-4 text-center text-apex-muted bg-apex-header-bg">
+    &copy; 2025 Blue Marlin OS &mdash; UI Style Guide
+  </footer>
+</body>
+</html> 

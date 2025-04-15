@@ -1,0 +1,40 @@
+{#
+  Blue Marlin OS - Minimal Test Template (Nunjucks)
+  ------------------------------------------------
+  This template is used to validate the 11ty + Tailwind + modular CSS build pipeline.
+  It includes:
+    - Header, content, and footer sections
+    - Tailwind utility classes
+    - A test button and content container
+    - Annotations for maintainability
+#}
+
+<!DOCTYPE html>
+<html lang="en" class="phase-apex">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blue Marlin OS - Test Page</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="bg-apex-bg text-apex-text min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="header py-4 px-6 bg-apex-header-bg text-apex-accent">
+    <h1 class="text-2xl font-bold">Blue Marlin OS <span class="text-apex-accent">Test</span></h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col items-center justify-center">
+    <div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-8 my-8 max-w-lg w-full">
+      <h2 class="text-xl font-semibold mb-4">Tailwind + 11ty Integration Test</h2>
+      <p class="mb-6">If you see this page styled with Blue Marlin's theme colors and layout, the build pipeline is working!</p>
+      <button class="button btn-glow px-6 py-2 rounded bg-apex-accent text-white font-bold hover:opacity-90 transition">Test Button</button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-bar py-4 text-center text-apex-muted bg-apex-header-bg">
+    &copy; 2025 Blue Marlin OS &mdash; Build Pipeline Test
+  </footer>
+</body>
+</html> 

@@ -1,13 +1,19 @@
-/**
- * Blue Marlin OS - Main Stylesheet
- * 
- * This is the main stylesheet for Blue Marlin OS, using Tailwind CSS.
- * It preserves the underwater visual effects and theme system while
- * improving maintainability through the utility-first approach.
- */
+/*
+  Blue Marlin OS - Main Stylesheet (Tailwind Entry)
+  ------------------------------------------------
+  This file imports the base CSS reset and all modular CSS files.
+  It is the entry point for Tailwind and PostCSS processing.
+  
+  - Imports base reset
+  - Loads Tailwind utilities
+  - Imports modular CSS (components, layouts, themes, animations)
+  - No legacy or reference CSS is included
+*/
 
-/* Tailwind Base Layers */
-*, ::before, ::after {
+@import './base/reset.css';
+
+/* Tailwind base, components, utilities */
+*, ::before, ::after{
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
   --tw-translate-x: 0;
@@ -60,7 +66,7 @@
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
 }
-::backdrop {
+::backdrop{
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
   --tw-translate-x: 0;
@@ -113,8 +119,9 @@
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
 }
-/*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com
- */
+/*
+  ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com
+*/
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -442,89 +449,132 @@ video {
   display: none;
 }
 :root {
-    /* Night Mode (phase-apex) Variables */
-    --apex-bg: #0a0e17;
-    --apex-container-bg: rgba(14, 22, 39, 0.7);
-    --apex-header-bg: rgba(10, 17, 33, 0.8);
-    --apex-text: #e1e8f5;
-    --apex-accent: #3e8ede;
-    --apex-muted: #768aa8;
-    --apex-accent-rgb: 62, 142, 222;
-    --apex-shafts: rgba(62, 142, 222, 0.15);
+    /* --- Night Mode (phase-apex) Variables ---
+     * These variables define the default (night/deep sea) theme colors and are used
+     * when <html> does NOT have the .phase-origin class. All underwater effects and
+     * UI elements use these by default.
+     */
+    --apex-bg: #0a0e17; /* Deep blue-black background for night mode */
+    --apex-container-bg: rgba(14, 22, 39, 0.7); /* Semi-transparent container background */
+    --apex-header-bg: rgba(10, 17, 33, 0.8); /* Semi-transparent header background */
+    --apex-text: #e1e8f5; /* Light blue-white text for night mode */
+    --apex-accent: #3e8ede; /* Bright blue accent for links, buttons, highlights */
+    --apex-muted: #768aa8; /* Muted blue for secondary text */
+    --apex-accent-rgb: 62, 142, 222; /* RGB values for use in gradients/animations */
+    --apex-shafts: rgba(62, 142, 222, 0.15); /* Light shaft color for underwater effect */
     
-    /* Day Mode (phase-origin) Variables - used when .phase-origin class is present */
-    --origin-bg: #faf5f0;
-    --origin-container-bg: rgba(250, 245, 240, 0.7);
-    --origin-header-bg: rgba(250, 245, 240, 0.8);
-    --origin-text: #2a2724;
-    --origin-accent: #f27405;
-    --origin-muted: #a3917c;
-    --origin-accent-rgb: 242, 116, 5;
-    --origin-shafts: rgba(242, 116, 5, 0.05);
+    /* --- Day Mode (phase-origin) Variables ---
+     * These variables are used when <html> has the .phase-origin class, switching
+     * the UI to a warm, sunlit theme. All color values are matched to the design spec.
+     */
+    --origin-bg: #faf5f0; /* Cream background for day mode */
+    --origin-container-bg: rgba(250, 245, 240, 0.7); /* Semi-transparent container background */
+    --origin-header-bg: rgba(250, 245, 240, 0.8); /* Semi-transparent header background */
+    --origin-text: #2a2724; /* Dark brown text for day mode */
+    --origin-accent: #f27405; /* Orange accent for links, buttons, highlights */
+    --origin-muted: #a3917c; /* Muted sand for secondary text */
+    --origin-accent-rgb: 242, 116, 5; /* RGB values for use in gradients/animations */
+    --origin-shafts: rgba(242, 116, 5, 0.05); /* Light shaft color for underwater effect (day) */
   }
-/* Base Styles */
-html {
+/* --- Base Styles ---
+   * Applies the default background and text color for night mode.
+   * Theme is toggled by adding/removing .phase-origin on <html>.
+   */
+html{
   --tw-bg-opacity: 1;
   background-color: rgb(10 14 23 / var(--tw-bg-opacity, 1));
   --tw-text-opacity: 1;
   color: rgb(225 232 245 / var(--tw-text-opacity, 1));
     scroll-behavior: smooth;
 }
-/* Day Theme (phase-origin) */
-html.phase-origin {
+/* --- Day Theme (phase-origin) ---
+   * When .phase-origin is present on <html>, all base colors switch to day mode.
+   */
+html.phase-origin{
   --tw-bg-opacity: 1;
   background-color: rgb(250 245 240 / var(--tw-bg-opacity, 1));
   --tw-text-opacity: 1;
   color: rgb(42 39 36 / var(--tw-text-opacity, 1));
 }
 /* Typography Base Styles */
-body {
+body{
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'kern' 1;
     text-rendering: optimizeLegibility;
 }
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6{
   font-weight: 700;
     line-height: 1.2;
 }
-h1 {
+h1{
   font-size: 2.25rem;
   line-height: 2.5rem;
 }
-h2 {
+h2{
   font-size: 1.875rem;
   line-height: 2.25rem;
 }
-h3 {
+h3{
   font-size: 1.5rem;
   line-height: 2rem;
 }
-h4 {
+h4{
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
-p {
+p{
   margin-top: 1rem;
   margin-bottom: 1rem;
     line-height: 1.6;
 }
-a {
+/* --- Link Colors ---
+   * Links use the accent color for the current theme.
+   */
+a{
   --tw-text-opacity: 1;
   color: rgb(62 142 222 / var(--tw-text-opacity, 1));
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
 }
-html.phase-origin a {
+html.phase-origin a{
   --tw-text-opacity: 1;
   color: rgb(242 116 5 / var(--tw-text-opacity, 1));
 }
-a:hover {
+a:hover{
   opacity: 0.9;
 }
-.light-shafts {
+.container{
+  width: 100%;
+}
+@media (min-width: 640px){
+  .container{
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px){
+  .container{
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px){
+  .container{
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px){
+  .container{
+    max-width: 1280px;
+  }
+}
+@media (min-width: 1536px){
+  .container{
+    max-width: 1536px;
+  }
+}
+.light-shafts{
   position: absolute;
   top: 0;
   left: 0;
@@ -534,7 +584,7 @@ a:hover {
   z-index: 0;
   overflow: hidden;
 }
-.light-shaft {
+.light-shaft{
   position: absolute;
   top: -10%;
   height: 120%;
@@ -546,36 +596,36 @@ a:hover {
   animation: lightShaftSway1 9s ease-in-out infinite;
   will-change: transform, opacity;
 }
-.light-shaft:nth-child(1) {
+.light-shaft:nth-child(1){
   left: 15%;
   width: 25px;
   animation-delay: -2s;
   animation: lightShaftSway1 9s ease-in-out infinite;
 }
-.light-shaft:nth-child(2) {
+.light-shaft:nth-child(2){
   left: 30%;
   width: 40px;
   animation-delay: -1s;
   animation: lightShaftSway2 11s ease-in-out infinite;
 }
-.light-shaft:nth-child(3) {
+.light-shaft:nth-child(3){
   left: 60%;
   width: 20px;
   animation-delay: -4s;
   animation: lightShaftSway3 10s ease-in-out infinite;
 }
-.light-shaft:nth-child(4) {
+.light-shaft:nth-child(4){
   left: 80%;
   width: 35px;
   animation-delay: -3s;
   animation: lightShaftSway4 12s ease-in-out infinite;
 }
-html.phase-origin .light-shaft {
+html.phase-origin .light-shaft{
   --min-opacity: 0;
   --max-opacity: 0.05;
   background: linear-gradient(to bottom, rgba(242, 116, 5, 0.05), transparent);
 }
-.particles {
+.particles{
   position: absolute;
   top: 0;
   left: 0;
@@ -584,7 +634,7 @@ html.phase-origin .light-shaft {
   pointer-events: none;
   z-index: 1;
 }
-.particle {
+.particle{
   position: absolute;
   background-color: #fff;
   border-radius: 50%;
@@ -593,10 +643,10 @@ html.phase-origin .light-shaft {
   transition: box-shadow 1s;
   animation: drift 20s linear infinite;
 }
-html.phase-origin .particle {
+html.phase-origin .particle{
   box-shadow: none;
 }
-.water-ripple {
+.water-ripple{
   position: absolute;
   pointer-events: none;
   border-radius: 50%;
@@ -605,10 +655,10 @@ html.phase-origin .particle {
   z-index: 5;
   opacity: 0;
 }
-html.phase-origin .water-ripple {
+html.phase-origin .water-ripple{
   background: radial-gradient(circle, rgba(74, 143, 231, 0.08) 0%, rgba(74, 143, 231, 0) 70%);
 }
-.content-container {
+.content-container{
   position: relative;
   z-index: 10;
   margin: 1rem;
@@ -621,19 +671,24 @@ html.phase-origin .water-ripple {
   animation: floatIn 0.8s ease-out;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
-html.phase-origin .content-container {
+html.phase-origin .content-container{
   background-color: rgba(250, 245, 240, 0.7);
   border: 1px solid rgba(14, 14, 14, 0.1);
 }
 /* Container for both effects */
-.underwater-environment {
+.underwater-environment{
   position: absolute;
   inset: 0px;
   z-index: 0;
   overflow: hidden;
 }
-/* Theme Toggle */
-.theme-toggle {
+/* --- Theme Toggle ---
+   * The theme toggle button switches between day and night modes.
+   * - .theme-toggle: Main toggle container, background color changes with theme.
+   * - .theme-toggle-knob: Movable knob, position and color change with theme.
+   * - .theme-toggle-icon: Sun/moon icon, updates with theme.
+   */
+.theme-toggle{
   position: relative;
   height: 1.5rem;
   width: 3rem;
@@ -646,11 +701,11 @@ html.phase-origin .content-container {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
 }
-html.phase-origin .theme-toggle {
+html.phase-origin .theme-toggle{
   --tw-bg-opacity: 1;
   background-color: rgb(242 116 5 / var(--tw-bg-opacity, 1));
 }
-.theme-toggle-knob {
+.theme-toggle-knob{
   position: absolute;
   left: 26px;
   top: 2px;
@@ -668,7 +723,7 @@ html.phase-origin .theme-toggle {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
 }
-html.phase-origin .theme-toggle-knob {
+html.phase-origin .theme-toggle-knob{
   left: 2px;
   --tw-bg-opacity: 1;
   background-color: rgb(250 245 240 / var(--tw-bg-opacity, 1));
@@ -678,7 +733,7 @@ html.phase-origin .theme-toggle-knob {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
 }
-.theme-toggle-icon {
+.theme-toggle-icon{
   display: block;
   --tw-translate-y: 0px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -690,37 +745,515 @@ html.phase-origin .theme-toggle-knob {
 .content-container {
     /* This is defined in the Tailwind plugin for consistent styling */
   }
-html.phase-origin .header {
+.header{
+  position: sticky;
+  top: 0px;
+  z-index: 100;
+  background-color: rgba(10, 17, 33, 0.8);
+  --tw-backdrop-blur: blur(8px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+}
+html.phase-origin .header{
   background-color: rgba(250, 245, 240, 0.8);
 }
 /* Animation Helpers */
 .has-animated {
     animation-play-state: running;
   }
-/* Motion Reduction */
+/* --- Motion Reduction ---
+   * Disables all non-essential animations and transitions for users who prefer reduced motion.
+   */
 @media (prefers-reduced-motion: reduce) {
-    * {
+    *{
     animation: none;
     transition-property: none;
   }
     
-    .particles {
+    .particles{
     display: none;
   }
   }
-.static {
+.pointer-events-none{
+  pointer-events: none;
+}
+.static{
   position: static;
 }
-.ease-out {
+.absolute{
+  position: absolute;
+}
+.relative{
+  position: relative;
+}
+.left-1\/2{
+  left: 50%;
+}
+.top-0{
+  top: 0px;
+}
+.z-20{
+  z-index: 20;
+}
+.my-8{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.mb-4{
+  margin-bottom: 1rem;
+}
+.mb-6{
+  margin-bottom: 1.5rem;
+}
+.mb-8{
+  margin-bottom: 2rem;
+}
+.mb-10{
+  margin-bottom: 2.5rem;
+}
+.mb-2{
+  margin-bottom: 0.5rem;
+}
+.mt-2{
+  margin-top: 0.5rem;
+}
+.mt-4{
+  margin-top: 1rem;
+}
+.mr-3{
+  margin-right: 0.75rem;
+}
+.mt-1{
+  margin-top: 0.25rem;
+}
+.ml-2{
+  margin-left: 0.5rem;
+}
+.mb-1{
+  margin-bottom: 0.25rem;
+}
+.block{
+  display: block;
+}
+.inline-block{
+  display: inline-block;
+}
+.flex{
+  display: flex;
+}
+.inline-flex{
+  display: inline-flex;
+}
+.grid{
+  display: grid;
+}
+.hidden{
+  display: none;
+}
+.h-3{
+  height: 0.75rem;
+}
+.h-4{
+  height: 1rem;
+}
+.h-5{
+  height: 1.25rem;
+}
+.max-h-0{
+  max-height: 0px;
+}
+.min-h-screen{
+  min-height: 100vh;
+}
+.w-full{
+  width: 100%;
+}
+.w-3{
+  width: 0.75rem;
+}
+.w-4{
+  width: 1rem;
+}
+.w-5{
+  width: 1.25rem;
+}
+.w-40{
+  width: 10rem;
+}
+.max-w-lg{
+  max-width: 32rem;
+}
+.max-w-4xl{
+  max-width: 56rem;
+}
+.max-w-md{
+  max-width: 28rem;
+}
+.max-w-2xl{
+  max-width: 42rem;
+}
+.flex-1{
+  flex: 1 1 0%;
+}
+.-translate-x-1\/2{
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.-translate-y-full{
+  --tw-translate-y: -100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.rotate-45{
+  --tw-rotate: 45deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+.select-none{
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.list-disc{
+  list-style-type: disc;
+}
+.list-none{
+  list-style-type: none;
+}
+.flex-col{
+  flex-direction: column;
+}
+.flex-wrap{
+  flex-wrap: wrap;
+}
+.items-start{
+  align-items: flex-start;
+}
+.items-center{
+  align-items: center;
+}
+.justify-start{
+  justify-content: flex-start;
+}
+.justify-center{
+  justify-content: center;
+}
+.justify-between{
+  justify-content: space-between;
+}
+.gap-4{
+  gap: 1rem;
+}
+.gap-6{
+  gap: 1.5rem;
+}
+.gap-3{
+  gap: 0.75rem;
+}
+.gap-2{
+  gap: 0.5rem;
+}
+.space-y-4 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+.divide-y > :not([hidden]) ~ :not([hidden]){
+  --tw-divide-y-reverse: 0;
+  border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+  border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
+.divide-apex-accent\/20 > :not([hidden]) ~ :not([hidden]){
+  border-color: rgb(62 142 222 / 0.2);
+}
+.self-start{
+  align-self: flex-start;
+}
+.overflow-hidden{
+  overflow: hidden;
+}
+.rounded{
+  border-radius: 0.25rem;
+}
+.rounded-lg{
+  border-radius: 0.5rem;
+}
+.rounded-full{
+  border-radius: 9999px;
+}
+.rounded-xl{
+  border-radius: 0.75rem;
+}
+.rounded-t{
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+.border{
+  border-width: 1px;
+}
+.border-b{
+  border-bottom-width: 1px;
+}
+.border-b-2{
+  border-bottom-width: 2px;
+}
+.border-apex-accent\/30{
+  border-color: rgb(62 142 222 / 0.3);
+}
+.border-apex-accent\/40{
+  border-color: rgb(62 142 222 / 0.4);
+}
+.border-white\/10{
+  border-color: rgb(255 255 255 / 0.1);
+}
+.border-apex-accent{
+  --tw-border-opacity: 1;
+  border-color: rgb(62 142 222 / var(--tw-border-opacity, 1));
+}
+.border-transparent{
+  border-color: transparent;
+}
+.bg-apex-accent{
+  --tw-bg-opacity: 1;
+  background-color: rgb(62 142 222 / var(--tw-bg-opacity, 1));
+}
+.bg-apex-bg{
+  --tw-bg-opacity: 1;
+  background-color: rgb(10 14 23 / var(--tw-bg-opacity, 1));
+}
+.bg-apex-container-bg{
+  background-color: rgba(14, 22, 39, 0.7);
+}
+.bg-apex-header-bg{
+  background-color: rgba(10, 17, 33, 0.8);
+}
+.bg-black\/50{
+  background-color: rgb(0 0 0 / 0.5);
+}
+.bg-apex-accent\/20{
+  background-color: rgb(62 142 222 / 0.2);
+}
+.bg-apex-container-bg\/80{
+  background-color: rgba(14, 22, 39, 0.8);
+}
+.p-8{
+  padding: 2rem;
+}
+.p-4{
+  padding: 1rem;
+}
+.p-6{
+  padding: 1.5rem;
+}
+.px-6{
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.py-2{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.py-4{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.px-4{
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.py-8{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.px-2{
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.py-1{
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.py-3{
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.px-3{
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.pl-5{
+  padding-left: 1.25rem;
+}
+.pl-0{
+  padding-left: 0px;
+}
+.text-left{
+  text-align: left;
+}
+.text-center{
+  text-align: center;
+}
+.font-mono{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+.text-2xl{
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.text-xl{
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.text-base{
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.text-lg{
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.text-sm{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.text-xs{
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.font-bold{
+  font-weight: 700;
+}
+.font-semibold{
+  font-weight: 600;
+}
+.font-medium{
+  font-weight: 500;
+}
+.italic{
+  font-style: italic;
+}
+.text-apex-accent{
+  --tw-text-opacity: 1;
+  color: rgb(62 142 222 / var(--tw-text-opacity, 1));
+}
+.text-apex-muted{
+  --tw-text-opacity: 1;
+  color: rgb(118 138 168 / var(--tw-text-opacity, 1));
+}
+.text-apex-text{
+  --tw-text-opacity: 1;
+  color: rgb(225 232 245 / var(--tw-text-opacity, 1));
+}
+.text-white{
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+.opacity-60{
+  opacity: 0.6;
+}
+.opacity-70{
+  opacity: 0.7;
+}
+.opacity-0{
+  opacity: 0;
+}
+.shadow-lg{
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow{
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-xl{
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.outline-none{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.ring{
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+.blur{
+  --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.backdrop-blur-md{
+  --tw-backdrop-blur: blur(12px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.transition{
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+.transition-transform{
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+.transition-opacity{
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+.transition-all{
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+.duration-300{
+  transition-duration: 300ms;
+}
+.duration-200{
+  transition-duration: 200ms;
+}
+.ease-out{
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
+
+/*
+  Additional modular CSS imports will be added here as new files are created:
+  @import './components/button.css';
+  @import './layouts/grid.css';
+  @import './themes/apex.css';
+  @import './animations/effects.css';
+*/
+
+/**
+ * Blue Marlin OS - Main Stylesheet
+ * 
+ * This is the main stylesheet for Blue Marlin OS, using Tailwind CSS.
+ * It preserves the underwater visual effects and theme system while
+ * improving maintainability through the utility-first approach.
+ *
+ * ---
+ * ANNOTATION: This file defines all global theme variables for both night (apex)
+ * and day (origin) modes. The .phase-origin class on <html> toggles between themes.
+ * All variables and theme logic are documented for maintainability and AI reference.
+ *
+ * For a full reference of theme variables and animation parameters, see docs/migration_index.md.
+ */
 
 /* Custom Theme Variables */
 
 /* Underwater Environment Effects */
 
 /* Import Modular CSS Files */
-@import 'base/reset.css';
 @import 'base/typography.css';
 @import 'themes/night.css';
 @import 'themes/day.css';
@@ -728,4 +1261,73 @@ html.phase-origin .header {
 @import 'components/buttons.css';
 @import 'components/cards.css';
 @import 'components/navigation.css';
-@import 'layouts/grid.css'; 
+@import 'layouts/grid.css';
+.checked\:border-apex-accent:checked{
+  --tw-border-opacity: 1;
+  border-color: rgb(62 142 222 / var(--tw-border-opacity, 1));
+}
+.checked\:bg-apex-accent:checked{
+  --tw-bg-opacity: 1;
+  background-color: rgb(62 142 222 / var(--tw-bg-opacity, 1));
+}
+.focus-within\:scale-105:focus-within{
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.focus-within\:shadow-xl:focus-within{
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.hover\:scale-105:hover{
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:text-apex-accent:hover{
+  --tw-text-opacity: 1;
+  color: rgb(62 142 222 / var(--tw-text-opacity, 1));
+}
+.hover\:underline:hover{
+  text-decoration-line: underline;
+}
+.hover\:opacity-90:hover{
+  opacity: 0.9;
+}
+.hover\:shadow-xl:hover{
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.focus\:border-apex-accent:focus{
+  --tw-border-opacity: 1;
+  border-color: rgb(62 142 222 / var(--tw-border-opacity, 1));
+}
+.focus\:outline-none:focus{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.focus\:ring-2:focus{
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+.focus\:ring-apex-accent:focus{
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(62 142 222 / var(--tw-ring-opacity, 1));
+}
+.group:focus-within .group-focus-within\:opacity-100{
+  opacity: 1;
+}
+.group:hover .group-hover\:translate-x-1{
+  --tw-translate-x: 0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.group:hover .group-hover\:opacity-100{
+  opacity: 1;
+}
+.group:focus .group-focus\:translate-x-1{
+  --tw-translate-x: 0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+} 
