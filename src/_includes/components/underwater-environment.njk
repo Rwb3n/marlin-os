@@ -1,0 +1,46 @@
+<!-- Underwater Environment Component
+     This component creates the visual underwater environment with particles and light effects
+     It is used as a wrapper around page content to provide the immersive underwater experience
+     
+     Usage:
+     {% include "components/underwater-environment.njk" %}
+     
+     Parameters:
+     - intensity: (optional) Controls the density of particles (low, medium, high)
+     - theme: (optional) Explicitly set theme (day, night) - defaults to current theme
+-->
+
+<div class="underwater-environment relative overflow-hidden w-full min-h-screen" 
+     data-intensity="{{ intensity | default('medium') }}"
+     data-theme="{{ theme | default('') }}">
+  
+  <!-- Particle container -->
+  <div class="particles-container absolute inset-0 pointer-events-none"></div>
+  
+  <!-- Light shafts effect -->
+  <div class="light-shafts absolute inset-0 opacity-0 transition-opacity duration-1000 pointer-events-none">
+    <div class="light-shaft light-shaft-1"></div>
+    <div class="light-shaft light-shaft-2"></div>
+    <div class="light-shaft light-shaft-3"></div>
+  </div>
+  
+  <!-- Water ripple overlay -->
+  <div class="water-ripple-overlay absolute inset-0 pointer-events-none"></div>
+  
+  <!-- Content slot -->
+  <div class="underwater-content relative z-10">
+    {{ content | safe }}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialize underwater effects for this component instance
+    if (typeof initUnderwaterEffects === 'function') {
+      const environmentEl = document.querySelector('.underwater-environment');
+      if (environmentEl) {
+        initUnderwaterEffects(environmentEl);
+      }
+    }
+  });
+</script> 

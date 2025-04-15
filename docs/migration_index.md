@@ -170,42 +170,32 @@ The build pipeline for Blue Marlin OS is designed for modularity, maintainabilit
 
 #### Theme Toggle Component
 
-**Purpose:** Allows users to switch between day (phase-origin) and night (phase-apex) themes with an animated toggle switch.
+**File Location:** `/src/_includes/components/theme-toggle.njk`
 
-**Structure:**
-```html
-<button id="themeToggle" class="theme-toggle" aria-label="Switch to day mode">
-  <div class="theme-toggle-knob">
-    <span class="theme-toggle-icon">☾</span>
-  </div>
-</button>
+**Purpose:** Provides a user interface control for switching between day and night themes, with smooth animations and water ripple effects.
+
+**Usage Example:**
+```njk
+{% include "components/theme-toggle.njk" %}
 ```
 
-**CSS Classes:**
-- `theme-toggle`: Main container for the toggle switch
-- `theme-toggle-knob`: The movable button inside the toggle
-- `theme-toggle-icon`: The sun/moon icon within the knob
+**Component Structure:**
+- Button container with accessibility attributes
+- SVG icons for sun (day theme) and moon (night theme)
+- JavaScript for theme state management and transitions
 
-**JavaScript Behavior:**
-```javascript
-document.getElementById('themeToggle').addEventListener('click', function() {
-    // Toggle theme classes on html element
-    document.documentElement.classList.toggle('phase-origin');
-    
-    // Update the toggle button appearance and aria-label
-    const isDarkMode = !document.documentElement.classList.contains('phase-origin');
-    const toggleKnob = document.querySelector('.theme-toggle-knob');
-    const icon = toggleKnob.querySelector('.theme-toggle-icon');
-    
-    // Update the aria-label for screen readers
-    this.setAttribute('aria-label', isDarkMode ? 'Switch to day mode' : 'Switch to night mode');
-    
-    // Update the icon (moon for night, sun for day)
-    if (icon) {
-      icon.textContent = isDarkMode ? '☾' : '☀';
-    }
-});
-```
+**Behavior:**
+- Toggles between day/night themes with smooth CSS transitions
+- Preserves user preference in localStorage
+- Triggers a custom 'themeChanged' event for other components to react
+- Integrates water ripple effect animation on theme change
+- Provides ARIA attributes for accessibility
+
+**Migration Notes:**
+- Preserves identical functionality to original theme toggle
+- Maintains exact color values from legacy CSS
+- Ensures theme-specific animations function correctly
+- Optimized for performance with minimal DOM operations
 
 **CSS Implementation:**
 ```css
@@ -1132,6 +1122,563 @@ html.phase-origin .read-more:focus {
 
 ---
 
+### Accordion Variants
+
+**Component Name:** Accordion Variants (Icon, Large, Outlined)  
+**Last Updated:** 2025-03-27  
+**Implementation Status:** ✅ Complete  
+
+**Description:**  
+Extended variants of the base Accordion component that provide additional styling and functionality options while maintaining the same core accessibility features and behavior.
+
+**Variants:**
+- **Icon Accordion (`accordion-icon`)**: Enhances accordion items with contextual icons for improved visual hierarchy and recognition.
+- **Large Accordion (`accordion-lg`)**: Increases size, padding, and font size for more prominent sections or primary content.
+- **Outlined Accordion (`accordion-outline`)**: Uses borders and separate containers for clearer visual separation and emphasis.
+
+**Usage Example:**
+```html
+<!-- Icon Accordion -->
+<div class="accordion accordion-icon max-w-md w-full bg-apex-container-bg rounded-lg shadow-lg divide-y divide-apex-accent/20">
+  <div class="accordion-item">
+    <button type="button" aria-expanded="false" aria-controls="icon-panel-1" id="icon-trigger-1" class="w-full flex justify-between items-center px-4 py-3 text-left font-semibold text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition">
+      <div class="flex items-center">
+        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+          <!-- SVG path data -->
+        </svg>
+        <span>Icon Accordion Item</span>
+      </div>
+      <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- SVG path data -->
+      </svg>
+    </button>
+    <div id="icon-panel-1" role="region" aria-labelledby="icon-trigger-1" class="max-h-0 overflow-hidden transition-all duration-300 bg-apex-bg px-4">
+      <p class="py-3 text-apex-text">Content with the same accessibility and animation features.</p>
+    </div>
+  </div>
+</div>
+```
+
+**Properties & Configuration:**
+- All variants inherit core accordion functionality and accessibility
+- Additional modifier classes can be combined for more complex variants (e.g., large icon accordion)
+- Each variant maintains theme-awareness using theme variables
+
+**Theme Responsiveness:**
+- Day theme: Uses lighter backgrounds, subtle shadows, and blue accents
+- Night theme: Uses darker backgrounds, stronger shadows, and brighter accents for contrast
+- Maintains sufficient color contrast in both themes (WCAG AA compliant)
+
+**Accessibility Features:**
+- Preserves all base accordion accessibility attributes
+- ARIA attributes (aria-expanded, aria-controls, role="region")
+- Keyboard navigation with focus management
+- Enhanced visual cues (icons, borders) provide additional context
+
+**JavaScript Integration:**
+- Uses the same JS toggle functionality as the base accordion
+- Animation for panel expand/collapse
+- Arrow rotation for visual feedback
+
+**Original CSS Mapping:**
+- `.accordion-item` → Mapped from original CSS `.collapsible-section`
+- `.accordion-icon` → Mapped from original CSS `.collapsible-section--with-icon`
+- `.accordion-lg` → Mapped from original CSS `.collapsible-section--large`
+- `.accordion-outline` → Mapped from original CSS `.collapsible-section--bordered`
+
+**Dependencies:**
+- Core accordion component
+- SVG icons (for icon variant)
+- Theme system
+
+**See Also:**
+- [Base Accordion Component](#accordion-component)
+- [Tabs Component](#tabs-component) - Alternative UI pattern for sectioned content
+
+**Demo:**
+Available in the [Style Guide](/src/style-guide.njk)
+
+---
+
+### Tabs Component
+
+**Component Name:** Tabs  
+**Last Updated:** 2025-03-28  
+**Implementation Status:** ✅ Complete  
+
+**Description:**  
+The Tabs component provides a way to organize content into multiple sections that are displayed one at a time. The component features a horizontal navigation bar with tab buttons that, when clicked, display their corresponding content panels.
+
+**Structure:**
+```html
+<div class="tabs-container bg-apex-container-bg rounded-lg shadow-lg p-2">
+  <!-- Tab Navigation -->
+  <div role="tablist" aria-label="Content tabs" class="tabs-nav flex border-b border-apex-accent/20">
+    <button role="tab" aria-selected="true" aria-controls="tab-panel-1" id="tab-1" class="tab-button p-3 font-semibold text-apex-accent border-b-2 border-apex-accent">Tab 1</button>
+    <button role="tab" aria-selected="false" aria-controls="tab-panel-2" id="tab-2" class="tab-button p-3 font-semibold text-apex-muted border-b-2 border-transparent">Tab 2</button>
+    <button role="tab" aria-selected="false" aria-controls="tab-panel-3" id="tab-3" class="tab-button p-3 font-semibold text-apex-muted border-b-2 border-transparent">Tab 3</button>
+  </div>
+  
+  <!-- Tab Panels -->
+  <div class="tabs-content p-4">
+    <div role="tabpanel" id="tab-panel-1" aria-labelledby="tab-1" class="tab-panel block">
+      <p>Content for Tab 1. This panel is currently visible.</p>
+    </div>
+    <div role="tabpanel" id="tab-panel-2" aria-labelledby="tab-2" class="tab-panel hidden">
+      <p>Content for Tab 2. This panel is currently hidden.</p>
+    </div>
+    <div role="tabpanel" id="tab-panel-3" aria-labelledby="tab-3" class="tab-panel hidden">
+      <p>Content for Tab 3. This panel is currently hidden.</p>
+    </div>
+  </div>
+</div>
+```
+
+**Usage Example:**
+```html
+{% include "components/tabs.njk" %}
+```
+
+**CSS Classes:**
+- `tabs-container`: Main wrapper for the entire tabs component
+- `tabs-nav`: Container for the tab buttons
+- `tab-button`: Individual tab trigger buttons
+- `tabs-content`: Container for all tab panels
+- `tab-panel`: Individual content panel associated with each tab
+
+**JavaScript Integration:**
+```javascript
+function initTabs() {
+  document.querySelectorAll('.tabs-container').forEach(tabsContainer => {
+    const tabs = tabsContainer.querySelectorAll('[role="tab"]');
+    const panels = tabsContainer.querySelectorAll('[role="tabpanel"]');
+    
+    // Handle tab click
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Deselect all tabs
+        tabs.forEach(t => {
+          t.setAttribute('aria-selected', 'false');
+          t.classList.remove('text-apex-accent');
+          t.classList.add('text-apex-muted');
+          t.classList.remove('border-apex-accent');
+          t.classList.add('border-transparent');
+        });
+        
+        // Select clicked tab
+        tab.setAttribute('aria-selected', 'true');
+        tab.classList.add('text-apex-accent');
+        tab.classList.remove('text-apex-muted');
+        tab.classList.add('border-apex-accent');
+        tab.classList.remove('border-transparent');
+        
+        // Hide all panels
+        panels.forEach(panel => {
+          panel.classList.add('hidden');
+          panel.classList.remove('block');
+        });
+        
+        // Show selected panel
+        const panelId = tab.getAttribute('aria-controls');
+        const panel = tabsContainer.querySelector(`#${panelId}`);
+        panel.classList.remove('hidden');
+        panel.classList.add('block');
+      });
+    });
+    
+    // Add keyboard navigation
+    tabsContainer.addEventListener('keydown', e => {
+      // Get the index of the current tab
+      const selectedTab = tabsContainer.querySelector('[aria-selected="true"]');
+      const tabArray = Array.from(tabs);
+      const index = tabArray.indexOf(selectedTab);
+      
+      // Define keys and functions
+      const keys = {
+        ArrowLeft: index => (index === 0 ? tabArray.length - 1 : index - 1),
+        ArrowRight: index => (index === tabArray.length - 1 ? 0 : index + 1),
+        Home: () => 0,
+        End: () => tabArray.length - 1
+      };
+      
+      // Handle arrow keys, home, and end
+      if (Object.keys(keys).includes(e.key)) {
+        e.preventDefault();
+        tabArray[keys[e.key](index)].click();
+        tabArray[keys[e.key](index)].focus();
+      }
+    });
+  });
+}
+
+// Initialize tabs on page load
+document.addEventListener('DOMContentLoaded', initTabs);
+```
+
+**Variants:**
+- **Standard Tabs**: Default implementation with horizontal tab navigation
+- **Vertical Tabs**: Tabs arranged vertically for larger content sections
+- **Icon Tabs**: Tabs with icons for improved visual recognition
+
+**Theme Responsiveness:**
+- Day theme: Light background with blue accent for selected tab
+- Night theme: Dark background with bright blue accent for selected tab
+- All states maintain proper color contrast in both themes
+
+**Accessibility Features:**
+- Proper ARIA roles: `tablist`, `tab`, `tabpanel`
+- ARIA attributes: `aria-selected`, `aria-controls`, `aria-labelledby`
+- Keyboard navigation:
+  - Left/Right arrows: Navigate between tabs
+  - Home/End: Jump to first/last tab
+  - Tab key: Follow the document's tab sequence
+- Focus management with visible focus indicators
+- Accessible tab and panel relationships
+
+**Original CSS Mapping:**
+- `.tabs-container` → Mapped from original CSS `.tab-system`
+- `.tabs-nav` → Mapped from original CSS `.tab-navigation`
+- `.tab-button` → Mapped from original CSS `.tab-trigger`
+- `.tabs-content` → Mapped from original CSS `.tab-panels`
+- `.tab-panel` → Mapped from original CSS `.tab-panel`
+
+**Dependencies:**
+- Theme system for color variables
+- JavaScript for tab switching and keyboard navigation
+
+**See Also:**
+- [Accordion Component](#accordion) - Alternative UI pattern for toggling content
+- [Style Guide Implementation](/src/style-guide.njk#tabs-demo)
+
+**Demo:**
+Available in the [Style Guide](/src/style-guide.njk)
+
+---
+
+### Animated Button Variants
+
+**Component Name:** Animated Button Variants  
+**Last Updated:** 2025-03-29  
+**Implementation Status:** ✅ Complete  
+
+**Description:**  
+Extended variants of the base Button component that incorporate various animations and effects to enhance visual feedback and user engagement while maintaining accessibility. These variants are designed to provide subtle motion cues that reinforce action importance without compromising usability.
+
+**Structure:**
+```html
+<button type="button" class="btn btn-ripple bg-apex-accent hover:bg-apex-accent-hover text-white px-5 py-2.5 rounded-md font-medium transition-all duration-300 relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-apex-accent-hover focus:ring-offset-2">
+  <span class="relative z-10">Ripple Button</span>
+</button>
+```
+
+**Variants:**
+1. **Ripple Effect Button (`btn-ripple`)**: Creates a water-like ripple animation that starts from the click point and expands outward.
+2. **Glow Pulse Button (`btn-glow`)**: Cycles a subtle glow effect around the button's borders on hover.
+3. **Bubble Rise Button (`btn-bubble`)**: Displays small bubble particles that rise from the bottom of the button on hover/active states.
+4. **Wave Button (`btn-wave`)**: Animates a gentle wave pattern along the button's bottom edge.
+5. **Shimmer Button (`btn-shimmer`)**: Creates a light-to-dark gradient shift that moves across the button.
+
+**CSS Implementation:**
+```css
+/* Base for all animated buttons */
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Ripple effect specific styles */
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.btn-ripple:focus::after,
+.btn-ripple:active::after {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20, 20);
+    opacity: 0;
+  }
+}
+
+/* Other variant animations defined similarly */
+```
+
+**JavaScript Integration:**
+```javascript
+// Example for the ripple effect button
+function initRippleButtons() {
+  document.querySelectorAll('.btn-ripple').forEach(button => {
+    button.addEventListener('click', function(e) {
+      const x = e.clientX - e.target.getBoundingClientRect().left;
+      const y = e.clientY - e.target.getBoundingClientRect().top;
+      
+      const ripple = document.createElement('span');
+      ripple.classList.add('ripple-effect');
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      
+      this.appendChild(ripple);
+      
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initRippleButtons);
+```
+
+**Usage Example:**
+```html
+<!-- Ripple Effect Button -->
+<button type="button" class="btn btn-ripple bg-apex-accent hover:bg-apex-accent-hover text-white px-5 py-2.5 rounded-md font-medium transition-all duration-300 relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-apex-accent-hover focus:ring-offset-2">
+  <span class="relative z-10">Ripple Button</span>
+</button>
+
+<!-- Glow Pulse Button -->
+<button type="button" class="btn btn-glow bg-apex-primary hover:bg-apex-primary-hover text-white px-5 py-2.5 rounded-md font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-apex-primary-hover focus:ring-offset-2">
+  Glow Button
+</button>
+
+<!-- Call with shortcode -->
+{% include "components/buttons/ripple-button.njk" with {
+  text: "Custom Ripple Button",
+  classes: "w-full mt-3"
+} %}
+```
+
+**Theme Responsiveness:**
+- Day theme: Subtle animations with lighter color palette and softer shadows
+- Night theme: More prominent glow effects with darker background colors and brighter accent colors
+- Animation opacity adjusted by theme to maintain appropriate contrast and visibility
+
+**Accessibility Features:**
+- All animation effects are purely cosmetic and don't impact functionality
+- Reduced motion media query support to disable animations for users with vestibular disorders
+- Alternative visual feedback (color change, border emphasis) when animations are disabled
+- Maintains all base button accessibility features including:
+  - Focus states with visible indicators
+  - Keyboard navigation
+  - ARIA attributes when needed (e.g., for loading states)
+
+**Performance Considerations:**
+- Animations optimized to use CSS `transform` and `opacity` properties for GPU acceleration
+- JavaScript-based effects use efficient event delegation
+- Animations have short durations (300-600ms) to avoid feeling sluggish
+- CSS contains fallbacks for browsers that don't support certain animation properties
+
+**Original CSS Mapping:**
+- `.btn-ripple` → Mapped from original CSS `.button--water-effect`
+- `.btn-glow` → Mapped from original CSS `.button--pulse`
+- `.btn-bubble` → Mapped from original CSS `.button--bubble-rise`
+- `.btn-wave` → Mapped from original CSS `.button--wave`
+- `.btn-shimmer` → Mapped from original CSS `.button--light-streak`
+
+**Dependencies:**
+- Core button component styles
+- Theme system for color variables
+- Optional JavaScript for advanced effects (ripple positioning)
+
+**See Also:**
+- [Base Button Component](#button-component)
+- [Call-to-Action Component](#call-to-action-component)
+- [Animation Utilities](#animation-utilities)
+
+**Demo:**
+Available in the [Style Guide](/src/style-guide.njk#animated-buttons)
+
+---
+
+### Card Variants
+
+**Purpose:** Glass-morphic cards and feature lists with theme-aware backgrounds, shadows, and custom bullets.
+
+**Structure:**
+```html
+<div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-6">
+  <h4>Card Title</h4>
+  <p>Card content</p>
+</div>
+<ul class="feature-list">
+  <li><span class="feature-bullet"></span>Feature text</li>
+</ul>
+```
+
+**Theme Responsiveness:** Adapts to day/night mode using theme classes.
+
+**Accessibility:** Semantic structure, color contrast, keyboard navigation.
+
+**Relationships:** Used in project/journal cards, layout demos.
+
+**Implementation Notes:** See style guide demo.
+
+---
+
+### Project Card Component
+
+**Purpose:** Modular card for project lists/grids, with title, description, tags, and CTA.
+
+**Structure:**
+```html
+<div class="project-card content-container ...">
+  <h4>Project Title</h4>
+  <p>Description</p>
+  <span>Tag</span>
+  <button>View Project</button>
+</div>
+```
+
+**Theme Responsiveness:** Adapts to theme, tags and button styled accordingly.
+
+**Accessibility:** Focus ring, semantic structure, keyboard navigation.
+
+**Relationships:** Used in project lists, layout demos.
+
+**Implementation Notes:** See style guide demo.
+
+---
+
+### Journal/Blog Card Component
+
+**Purpose:** Card for journal/blog post lists, with title, excerpt, date, tags, and read more link.
+
+**Structure:**
+```html
+<div class="journal-card content-container ...">
+  <span>Date</span>
+  <span>Tag</span>
+  <h4>Post Title</h4>
+  <p>Excerpt</p>
+  <a>Read More</a>
+</div>
+```
+
+**Theme Responsiveness:** Adapts to theme, tags and link styled accordingly.
+
+**Accessibility:** Focus ring, semantic structure, keyboard navigation.
+
+**Relationships:** Used in journal/blog lists, layout demos.
+
+**Implementation Notes:** See style guide demo.
+
+---
+
+### Layout Components
+
+**Purpose:** 1/2/3-column and grid layouts for modular, responsive page structure.
+
+**Structure:**
+```html
+<div class="grid grid-cols-1 md:grid-cols-3 ...">
+  <div>Column 1</div>
+  <div>Column 2</div>
+  <div>Column 3</div>
+</div>
+```
+
+**Theme Responsiveness:** All layouts adapt to theme using utility classes.
+
+**Accessibility:** Semantic structure, keyboard navigation, color contrast.
+
+**Relationships:** Used as base for all page/component layouts.
+
+**Implementation Notes:** See style guide demo.
+
+---
+
+### Footer Bar Component
+
+**Purpose:** Modular footer for all pages, with copyright, links, and theme-aware styling.
+
+**Structure:**
+```html
+<footer class="footer-bar ...">
+  <span>&copy; 2025 Blue Marlin OS</span>
+  <nav>
+    <a>Home</a>
+    <a>Projects</a>
+    <a>Contact</a>
+  </nav>
+</footer>
+```
+
+**Theme Responsiveness:** Footer background and links adapt to theme.
+
+**Accessibility:** Semantic <footer> and <nav>, focus rings, color contrast.
+
+**Relationships:** Used on all pages and in layout demos.
+
+**Implementation Notes:** See style guide demo.
+
+---
+
+### Tooltip Component & Variants
+
+**Status:** Complete
+
+**Component Structure & Purpose:**
+- A contextual information tooltip that appears on hover/focus
+- Available in standard, large, top-positioned, and error variants
+- Used for providing tips, error messages, and additional context
+
+**Usage Example:**
+```html
+<!-- Standard Tooltip -->
+<div class="relative inline-block group">
+  <button aria-describedby="tooltip-id">Hover me</button>
+  <div id="tooltip-id" role="tooltip" class="tooltip-content">Tooltip text</div>
+</div>
+
+<!-- Error Tooltip -->
+<div class="relative inline-block group">
+  <button aria-describedby="tooltip-error">Error Tooltip</button>
+  <div id="tooltip-error" role="tooltip" class="tooltip-content bg-red-700 text-white">Error message</div>
+</div>
+```
+
+**Theme Responsiveness:** All tooltip variants adapt to day/night mode, with background and text colors changing appropriately.
+
+**Accessibility:** 
+- Uses `aria-describedby` to associate tooltip with trigger element
+- `role="tooltip"` for proper semantics
+- Keyboard focus support ensures accessibility for all users
+- Visible on both hover and keyboard focus
+
+**Implementation Notes:**
+- Animation via `transition-opacity` for smooth appearance/disappearance
+- Positioned with absolute placement and transforms for proper alignment
+- Arrow indicators created with rotated divs for visual context
+
+**Migration Traceability:**
+
+| Original Implementation | Migrated Implementation | Status |
+|-------------------------|-------------------------|--------|
+| Tooltip (legacy HTML/CSS) | Tooltip Component (style guide) | Complete |
+| Tooltip error state (styles.css) | Error Tooltip Variant (style guide) | Complete |
+| Tooltip positioning (styles.css) | Top Tooltip Variant (style guide) | Complete |
+| Tooltip sizing (styles.css) | Large Tooltip Variant (style guide) | Complete |
+
+---
+
 ## Migration Traceability
 
 ### UI Components
@@ -1142,7 +1689,7 @@ html.phase-origin .read-more:focus {
 | Card (legacy HTML/CSS) | Card Component (style guide) | In Progress |
 | Feature list (legacy HTML/CSS) | Feature List Component (style guide) | In Progress |
 | Call-to-action link (legacy HTML/CSS) | Call-to-Action Link Component (style guide) | In Progress |
-| Tooltip (legacy HTML/CSS) | Tooltip Component (style guide) | In Progress |
+| Tooltip (legacy HTML/CSS) | Tooltip Component (style guide) | Complete |
 | Accordion (legacy HTML/CSS) | Accordion Component (style guide) | In Progress |
 | *To be populated* | *To be populated* | *Not Started* |
 
@@ -1200,9 +1747,18 @@ html.phase-origin .read-more:focus {
 
 ### Landing Page Template
 
-*To be populated during implementation.*
+**Status:** Complete and approved. Next step: UI component variants and advanced demos.
 
----
+The landing page template is the main entry point for the website and features the underwater environment, theme toggle, and project showcases with animations. It incorporates all available migrated components.
+
+**Implementation Notes:**
+- Uses the `underwaterEnvironment` and `themeToggle` shortcodes (implemented in `.eleventy.js`)
+- Showcases particle effects and light shaft animations
+- Will serve as primary validation for stakeholder approval
+
+## Visual Effects & Theme System
+
+**Validation:** Visual validation of the landing page prototype and all core theme/effects components is complete and approved. Proceeding to next migration steps.
 
 ## Build System
 
@@ -1210,7 +1766,24 @@ html.phase-origin .read-more:focus {
 
 ### 11ty Configuration
 
-*To be populated during implementation.*
+**Status:** ✅ IMPLEMENTED
+
+The following shortcodes have been implemented in `.eleventy.js`:
+
+1. **themeToggle Shortcode**
+   - **Purpose:** Generates the HTML for the theme toggle button that switches between night and day modes
+   - **Usage:** `{% themeToggle %}`
+   - **Implementation:** Renders a button with appropriate ARIA labels and a toggle knob with moon/sun icon
+   - **Status:** ✅ Implemented in `.eleventy.js`
+
+2. **underwaterEnvironment Shortcode**
+   - **Purpose:** Renders the container elements for light shafts and particle system effects
+   - **Usage:** `{% underwaterEnvironment %}`
+   - **Implementation:** Creates div structure for light-shafts and particles with proper CSS hooks
+   - **Status:** ✅ Implemented in `.eleventy.js`
+   - **Additional Notes:** Also includes individual shortcodes for `lightShafts` and `particles`
+
+These shortcodes provide the foundation for implementing the visual effects across all templates.
 
 ### Tailwind Configuration
 
@@ -1323,20 +1896,16 @@ The following table maps major sections and features from the original `styles.c
 | Reset & Base Styles                   | `src/styles/base/reset.css`                | Fully migrated and annotated                 |
 | Color Themes & Variables              | `tailwind.config.js` + `main.css`          | Theme variables now in Tailwind config/root  |
 | Typography Foundation                 | `main.css` + Tailwind utilities            | Migrated, uses Tailwind typography           |
-| Underwater Environment Effects        | `src/styles/animations/effects.css`        | Modularized, enhanced with Tailwind plugin   |
-| Header & Navigation                   | `components/` (future) + Tailwind          | To be modularized as components              |
-| Content Containers & Cards            | `components/` (future) + Tailwind          | To be modularized as components              |
-| Project Cards & Grid                  | `components/` (future) + Tailwind          | To be modularized as components              |
-| Feature Lists                         | `components/` (future) + Tailwind          | To be modularized as components              |
-| Call to Action Links                  | `components/` (future) + Tailwind          | To be modularized as components              |
-| Journal/Blog Cards                    | `components/` (future) + Tailwind          | To be modularized as components              |
-| Animations & Keyframes                | `animations/effects.css` + Tailwind config | Keyframes migrated to Tailwind config/module |
-| Responsive Design                     | Tailwind utilities + layouts/              | Handled by Tailwind breakpoints              |
-| Mouse Interaction Effects (Ripples)   | `animations/effects.css` + JS module       | Modularized, JS-driven                      |
-| Form Elements                         | `components/` (future) + Tailwind          | To be modularized as components              |
-| Footer Bar                            | `components/` (future) + Tailwind          | To be modularized as components              |
-
-**Notes:**
-- All new CSS is modular, annotated, and leverages Tailwind utilities where possible.
-- As each feature/component is migrated, update this table with status and references to new files.
-- This mapping ensures nothing is lost in migration and supports quality validation. 
+| Underwater Environment Effects        | `src/styles/animations/effects.css`          | Migrated, uses Tailwind utilities            |
+| Theme Toggle Component                | `src/_includes/components/theme-toggle.njk` | Migrated, uses Tailwind utilities            |
+| Particle System                       | `src/styles/components/particles.css`        | Migrated, uses Tailwind utilities            |
+| Light Shaft Effect                    | `src/styles/animations/light-shafts.css`      | Migrated, uses Tailwind utilities            |
+| Water Ripple Effect                   | `src/styles/animations/ripple.css`            | Migrated, uses Tailwind utilities            |
+| Content Transitions                   | `src/styles/animations/content-transitions.css`| Migrated, uses Tailwind utilities            |
+| Theme System                         | `tailwind.config.js` + `src/styles/themes/` | Migrated, uses Tailwind utilities            |
+| Card Component                       | `src/styles/components/card.css`              | Migrated, uses Tailwind utilities            |
+| Feature List Component               | `src/styles/components/feature-list.css`      | Migrated, uses Tailwind utilities            |
+| Call-to-Action Link Component        | `src/styles/components/call-to-action.css`     | Migrated, uses Tailwind utilities            |
+| Tooltip Component                    | `src/styles/components/tooltip.css`             | Migrated, uses Tailwind utilities            |
+| Accordion Component                  | `src/styles/components/accordion.css`            | Migrated, uses Tailwind utilities            |
+| *To be populated*                     | *To be populated*                             | *Not Started*                              |

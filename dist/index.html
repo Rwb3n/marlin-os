@@ -5,27 +5,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blue Marlin OS - Test Page</title>
+  <title>Blue Marlin OS - Landing Page</title>
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body class="bg-apex-bg text-apex-text min-h-screen flex flex-col">
-  <!-- Header -->
-  <header class="header py-4 px-6 bg-apex-header-bg text-apex-accent">
-    <h1 class="text-2xl font-bold">Blue Marlin OS <span class="text-apex-accent">Test</span></h1>
-  </header>
-
-  <!-- Main Content -->
-  <main class="flex-1 flex flex-col items-center justify-center">
-    <div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-8 my-8 max-w-lg w-full">
-      <h2 class="text-xl font-semibold mb-4">Tailwind + 11ty Integration Test</h2>
-      <p class="mb-6">If you see this page styled with Blue Marlin's theme colors and layout, the build pipeline is working!</p>
-      <button class="button btn-glow px-6 py-2 rounded bg-apex-accent text-white font-bold hover:opacity-90 transition">Test Button</button>
+  <div class="underwater-environment">
+      <div class="light-shafts">
+        <div class="light-shaft"></div>
+        <div class="light-shaft"></div>
+        <div class="light-shaft"></div>
+        <div class="light-shaft"></div>
+      </div>
+      <div class="particles" id="particles"></div>
     </div>
-  </main>
+  <!-- Header & Navigation -->
+  <header class="header py-4 px-6 bg-apex-header-bg text-apex-accent flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <span class="font-bold text-2xl">Blue Marlin OS</span>
+      <span class="text-base font-semibold opacity-70">Landing Page Prototype</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <button id="themeToggle" class="theme-toggle" aria-label="Switch to day mode">
+      <div class="theme-toggle-knob">
+        <span class="theme-toggle-icon">☾</span>
+      </div>
+    </button>
+    </div>
+  </header>
+  <nav class="w-full py-2 px-6 bg-apex-header-bg text-apex-muted flex gap-6">
+    <a href="#features" class="hover:text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition">Features</a>
+    <a href="#projects" class="hover:text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition">Projects</a>
+    <a href="#journal" class="hover:text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition">Journal</a>
+    <a href="#layout" class="hover:text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition">Layout Demo</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="w-full max-w-4xl mx-auto mt-10 mb-12 px-4">
+    <div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-8 flex flex-col md:flex-row items-center gap-8">
+      <div class="flex-1">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">Welcome to Blue Marlin OS</h1>
+        <p class="mb-6 text-apex-muted text-lg">A modern, underwater-inspired OS UI built with Tailwind CSS, 11ty, and custom visual effects. Explore the new modular component system and theme toggle below.</p>
+        <a href="#features" class="read-more inline-flex items-center font-semibold text-apex-accent hover:underline hover:text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition group">
+          Learn More
+          <svg class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-focus:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="flex-1 flex justify-center items-center">
+        <!-- Placeholder for hero visual or effect -->
+        <div class="w-48 h-48 bg-apex-accent/10 rounded-full flex items-center justify-center shadow-lg">
+          <span class="text-apex-accent text-5xl">🐟</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="w-full max-w-4xl mx-auto mb-12 px-4">
+    <h2 class="text-2xl font-bold mb-6">Core Features</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Feature Card 1 -->
+      <div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-6 flex flex-col items-start">
+        <h3 class="text-lg font-semibold mb-2">Underwater Visual Effects</h3>
+        <p class="mb-4 text-apex-muted">Light shafts, particles, and water ripples create a unique deep-sea atmosphere. All effects are theme-aware and performance-optimized.</p>
+        <span class="feature-bullet w-4 h-4 rounded-full bg-apex-accent shadow mb-2"></span>
+      </div>
+      <!-- Feature Card 2 -->
+      <div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-6 flex flex-col items-start">
+        <h3 class="text-lg font-semibold mb-2">Dual Theme System</h3>
+        <p class="mb-4 text-apex-muted">Switch between day and night modes with a smooth animated toggle. All components and effects adapt instantly.</p>
+        <span class="feature-bullet w-4 h-4 rounded-full bg-apex-accent shadow mb-2"></span>
+      </div>
+      <!-- Feature Card 3 -->
+      <div class="content-container bg-apex-container-bg rounded-lg shadow-lg p-6 flex flex-col items-start">
+        <h3 class="text-lg font-semibold mb-2">Modular UI Components</h3>
+        <p class="mb-4 text-apex-muted">Reusable, accessible, and theme-aware components built with Tailwind and 11ty. Easily extend and customize for any use case.</p>
+        <span class="feature-bullet w-4 h-4 rounded-full bg-apex-accent shadow mb-2"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="w-full max-w-4xl mx-auto mb-12 px-4">
+    <h2 class="text-2xl font-bold mb-6">Recent Projects</h2>
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- Project Card Demo (reuse from style guide) -->
+      <div class="project-card content-container bg-apex-container-bg rounded-xl shadow-lg p-6 max-w-md w-full flex flex-col gap-4">
+        <div>
+          <h4 class="text-xl font-bold mb-1">Blue Marlin Underwater Explorer</h4>
+          <p class="text-apex-muted mb-2">A real-time underwater simulation with dynamic light shafts, particles, and theme transitions. Built with 11ty, Tailwind, and custom JS effects.</p>
+        </div>
+        <div class="flex flex-wrap gap-2 mb-2">
+          <span class="inline-block bg-apex-accent/20 text-apex-accent text-xs font-semibold px-2 py-1 rounded">11ty</span>
+          <span class="inline-block bg-apex-accent/20 text-apex-accent text-xs font-semibold px-2 py-1 rounded">Tailwind</span>
+          <span class="inline-block bg-apex-accent/20 text-apex-accent text-xs font-semibold px-2 py-1 rounded">JS Effects</span>
+        </div>
+        <button class="read-more inline-flex items-center font-semibold text-apex-accent hover:underline hover:text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition group self-start">
+          View Project
+          <svg class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-focus:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6l6 6-6 6"/></svg>
+        </button>
+      </div>
+      <!-- Placeholder for additional projects -->
+      <div class="project-card content-container bg-apex-container-bg/80 rounded-xl shadow p-6 max-w-md w-full flex flex-col gap-4 items-center justify-center opacity-60">
+        <span class="text-apex-muted">More projects coming soon…</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journal Section -->
+  <section id="journal" class="w-full max-w-4xl mx-auto mb-12 px-4">
+    <h2 class="text-2xl font-bold mb-6">Latest Journal Entry</h2>
+    <div class="journal-card content-container bg-apex-container-bg rounded-xl shadow p-6 max-w-md w-full flex flex-col gap-3">
+      <div class="flex items-center justify-between mb-1">
+        <span class="text-xs text-apex-muted">2025-03-26</span>
+        <div class="flex flex-wrap gap-1">
+          <span class="inline-block bg-apex-accent/20 text-apex-accent text-xs font-semibold px-2 py-0.5 rounded">Update</span>
+          <span class="inline-block bg-apex-accent/20 text-apex-accent text-xs font-semibold px-2 py-0.5 rounded">Migration</span>
+        </div>
+      </div>
+      <h4 class="text-lg font-bold mb-1">Migration Progress Update</h4>
+      <p class="text-apex-muted mb-2">We've completed the core visual effects and are now building out the modular UI component system in Tailwind and 11ty.</p>
+      <a href="#" class="read-more inline-flex items-center font-semibold text-apex-accent hover:underline hover:text-apex-accent focus:outline-none focus:ring-2 focus:ring-apex-accent transition group self-start">
+        Read More
+        <svg class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-focus:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Layout Demo Section -->
+  <section id="layout" class="w-full max-w-4xl mx-auto mb-12 px-4">
+    <h2 class="text-2xl font-bold mb-6">Layout Demo</h2>
+    <div class="mb-6">
+      <h4 class="text-base font-semibold mb-2">3-Column Grid Layout</h4>
+      <div class="bg-apex-container-bg rounded-lg shadow p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-apex-bg/80 rounded p-3 text-apex-text">Column 1</div>
+        <div class="bg-apex-bg/80 rounded p-3 text-apex-text">Column 2</div>
+        <div class="bg-apex-bg/80 rounded p-3 text-apex-text">Column 3</div>
+      </div>
+    </div>
+    <div class="mb-6">
+      <h4 class="text-base font-semibold mb-2">2-Column Layout (Content + Sidebar)</h4>
+      <div class="bg-apex-container-bg rounded-lg shadow p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="md:col-span-2 bg-apex-bg/80 rounded p-3 text-apex-text">Main Content</div>
+        <div class="md:col-span-1 bg-apex-bg/80 rounded p-3 text-apex-text">Sidebar</div>
+      </div>
+    </div>
+    <div class="mb-6">
+      <h4 class="text-base font-semibold mb-2">1-Column Layout (Mobile First)</h4>
+      <div class="bg-apex-container-bg rounded-lg shadow p-4 flex flex-col gap-4">
+        <div class="bg-apex-bg/80 rounded p-3 text-apex-text">Header</div>
+        <div class="bg-apex-bg/80 rounded p-3 text-apex-text">Main Content</div>
+        <div class="bg-apex-bg/80 rounded p-3 text-apex-text">Footer</div>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="footer-bar py-4 text-center text-apex-muted bg-apex-header-bg">
-    &copy; 2025 Blue Marlin OS &mdash; Build Pipeline Test
+    &copy; 2025 Blue Marlin OS &mdash; Landing Page Prototype
   </footer>
 </body>
 </html> 
